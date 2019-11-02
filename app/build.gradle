@@ -35,4 +35,5 @@ dependencies {
     implementation 'com.ogaclejapan.smarttablayout:library:1.7.0@aar'
     //Optional: see how to use the utility.
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar'
+    implementation 'com.android.support:cardview-v7:27.1.0'
 }

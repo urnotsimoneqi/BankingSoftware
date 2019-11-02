@@ -24,7 +24,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table user (user_name varchar(20), user_pwd varchar(20))");
-        db.execSQL("insert into user values('admin@admin.com','123456')");
+        db.execSQL("insert into user values('demo@demo.com','123456')");
 
 //        db.execSQL("create table group_goal (group_id integer primary key autoincrement, group_name varchar(20), target_amount integer)");
 //        db.execSQL("insert into group_goal values(1,'test1','10000')");

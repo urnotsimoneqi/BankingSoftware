@@ -3,25 +3,19 @@ package com.example.demov1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.CardView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
-
-import java.util.ArrayList;
 import java.util.List;
-//import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Fragment> mTabFragments;
-    private List<String> mTabIndicators;
+    private CardView cardView;
+    private FragmentPagerItemAdapter mAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,27 +24,36 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-
         initView();
+
     }
 
     private void initView() {
         // One fragment will change by the parameter
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        mAdapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add(FragmentPagerItem.of("Goal", PageFragment.class, PageFragment.arguments("param:page1")))
-                .add(FragmentPagerItem.of("Group", PageFragment.class, PageFragment.arguments("param:page2")))
-                .add(FragmentPagerItem.of("Notice", PageFragment.class, PageFragment.arguments("param:page3")))
+                .add("Goal", GoalFragment.class)
+                .add("Group", GroupFragment.class)
+                .add("Notice", NoticeFragment.class)
                 .create());
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(adapter);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setAdapter(mAdapter);
 
         SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
-        viewPagerTab.setViewPager(viewPager);
+        viewPagerTab.setViewPager(mViewPager);
+        viewPagerTab.setOnPageChangeListener(mPageChangeListener);
 
     }
 
+    private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+        @Override
+        public void onPageSelected(int position) {
+            Fragment page = mAdapter.getPage(position);
+            System.out.println(position);
+            mViewPager.setCurrentItem(position);
+        }
+    };
 
 
 //    @Override
