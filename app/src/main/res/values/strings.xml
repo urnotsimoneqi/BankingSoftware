@@ -2,4 +2,6 @@
     <string name="app_name">DemoV1</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="current_amount">Saved: SGD&#160;</string>
+    <string name="target_amount">Goal: SGD&#160;</string>
 </resources>
