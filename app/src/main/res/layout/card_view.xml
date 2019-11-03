@@ -49,8 +49,7 @@
                     android:layout_height="30dp"
                     android:layout_below="@id/group_photo"
                     app:rcProgressColor="@color/DarkOrange"
-                    app:rcBackgroundColor="@color/DarkOrange"
-                    app:rcBackgroundPadding="5dp"/>
+                    app:rcBackgroundPadding="1dp"/>
             <TextView
                     android:id="@+id/current_amount_label"
                     android:text="@string/current_amount"

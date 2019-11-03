@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.demov1.Entity.GroupEntity;
 import com.example.demov1.Entity.UserEntity;
+import com.example.demov1.dao.GroupDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class GoalFragment extends Fragment {
     private ArrayList<GroupEntity> groupEntityList = new ArrayList<GroupEntity>();
     //自定义recyclerveiw的适配器
     private GoalRecycleAdapter mGoalRecyclerAdapter;
+    private GroupDao groupDao;
 
     @Nullable
     @Override
@@ -33,6 +35,7 @@ public class GoalFragment extends Fragment {
         view = inflater.inflate(R.layout.goal_tab, container, false);
         //对recycleview进行配置
         initRecyclerView();
+        groupDao = new GroupDao(getActivity());
         //模拟数据
         groupEntityList = initData();
         System.out.println("groupsize"+groupEntityList.size());
@@ -43,17 +46,20 @@ public class GoalFragment extends Fragment {
      * TODO Test Data
      */
     private ArrayList<GroupEntity> initData() {
-        ArrayList<GroupEntity> groupEntityList = new ArrayList<>();
-        List<UserEntity> userEntityList1 = new ArrayList<>();
-        List<UserEntity> userEntityList2 = new ArrayList<>();
-        userEntityList1.add(new UserEntity(1,1,"user 1","123456"));
-        userEntityList1.add(new UserEntity(2,1,"user 2","123456"));
-        userEntityList1.add(new UserEntity(3,1,"user 3","123456"));
-        userEntityList1.add(new UserEntity(4,1,"user 4","123456"));
-        userEntityList1.add(new UserEntity(5,1,"user 5","123456"));
-        userEntityList2.add(new UserEntity(6,2,"user 6","123456"));
-        groupEntityList.add(new GroupEntity(1, "Goal 1", 3000, 1000, userEntityList1));
-        groupEntityList.add(new GroupEntity(2, "Goal 2", 3000, 1000, userEntityList2));
+//        ArrayList<GroupEntity> groupEntityList = new ArrayList<>();
+//        List<UserEntity> userEntityList1 = new ArrayList<>();
+//        List<UserEntity> userEntityList2 = new ArrayList<>();
+//        userEntityList1.add(new UserEntity(1,1,"user 1","123456"));
+//        userEntityList1.add(new UserEntity(2,1,"user 2","123456"));
+//        userEntityList1.add(new UserEntity(3,1,"user 3","123456"));
+//        userEntityList1.add(new UserEntity(4,1,"user 4","123456"));
+//        userEntityList1.add(new UserEntity(5,1,"user 5","123456"));
+//        userEntityList2.add(new UserEntity(6,2,"user 6","123456"));
+//        groupEntityList.add(new GroupEntity(1, "Goal 1", 3000, 1000, userEntityList1));
+//        groupEntityList.add(new GroupEntity(2, "Goal 2", 3000, 1000, userEntityList2));
+
+        ArrayList<GroupEntity> groupEntityList = groupDao.listGroup();
+
 
         return groupEntityList;
 

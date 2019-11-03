@@ -23,11 +23,17 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     /*通过OnCreate方法，实现数据表的创建*/
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table user (user_name varchar(20), user_pwd varchar(20))");
-        db.execSQL("insert into user values('demo@demo.com','123456')");
+        db.execSQL("create table group_goal (group_id integer primary key autoincrement, group_name varchar(20), target_amount integer, current_amount integer)");
+        db.execSQL("insert into group_goal values(1,'Goal1',10000,10000)");
+        db.execSQL("insert into group_goal values(2, 'Goal2',10000,2000)");
 
-//        db.execSQL("create table group_goal (group_id integer primary key autoincrement, group_name varchar(20), target_amount integer)");
-//        db.execSQL("insert into group_goal values(1,'test1','10000')");
+        db.execSQL("create table user (user_id integer primary key autoincrement, group_id integer, user_name varchar(20), user_pwd varchar(20))");
+        db.execSQL("insert into user values(1,1,'user1@demo.com','123456')");
+        db.execSQL("insert into user values(2,1,'user2@demo.com','123456')");
+        db.execSQL("insert into user values(3,1,'user3@demo.com','123456')");
+        db.execSQL("insert into user values(4,1,'user4@demo.com','123456')");
+        db.execSQL("insert into user values(5,1,'user5@demo.com','123456')");
+        db.execSQL("insert into user values(6,2,'user6@demo.com','123456')");
     }
 
     @Override

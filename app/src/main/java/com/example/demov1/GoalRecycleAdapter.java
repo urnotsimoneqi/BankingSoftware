@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.demov1.Entity.GroupEntity;
 
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ public class GoalRecycleAdapter extends RecyclerView.Adapter<GoalRecycleAdapter.
         holder.groupTargetAmount.setText(String.valueOf(data.getTargetAmount()));
         String groupMember = "GroupMember: " + String.valueOf(data.getUsers().size()) +"/5";
         holder.groupMemberNum.setText(groupMember);
+        holder.progressBar.setMax(data.getTargetAmount());
+        holder.progressBar.setProgress(data.getCurrentAmount());
     }
 
     /**
@@ -71,6 +74,7 @@ public class GoalRecycleAdapter extends RecyclerView.Adapter<GoalRecycleAdapter.
         private TextView groupCurrentAmount;
         private TextView groupTargetAmount;
         private TextView groupMemberNum;
+        private RoundCornerProgressBar progressBar;
 
         public myViewHodler(View itemView) {
             super(itemView);
@@ -79,6 +83,7 @@ public class GoalRecycleAdapter extends RecyclerView.Adapter<GoalRecycleAdapter.
             groupCurrentAmount = (TextView) itemView.findViewById(R.id.current_amount);
             groupTargetAmount = (TextView) itemView.findViewById(R.id.target_amount);
             groupMemberNum = (TextView) itemView.findViewById(R.id.group_member);
+            progressBar = itemView.findViewById(R.id.progress_bar);
             //点击事件放在adapter中使用，也可以写个接口在activity中调用
             //方法一：在adapter中设置点击事件
 //            itemView.setOnClickListener(new View.OnClickListener() {
