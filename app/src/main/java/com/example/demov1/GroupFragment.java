@@ -12,6 +12,7 @@ public class GroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.group_tab, container, false);
+        System.out.println("This is the Group Tab");
         return view;
     }
 }

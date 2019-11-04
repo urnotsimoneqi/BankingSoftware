@@ -1,20 +1,25 @@
 package com.example.demov1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.alibaba.fastjson.JSON;
 import com.example.demov1.Entity.GroupEntity;
 import com.example.demov1.Entity.UserEntity;
 import com.example.demov1.dao.GroupDao;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,7 @@ public class GoalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //获取fragment的layout
         view = inflater.inflate(R.layout.goal_tab, container, false);
+        System.out.println("This is the Goal Tab");
         //对recycleview进行配置
         initRecyclerView();
         groupDao = new GroupDao(getActivity());
@@ -71,11 +77,13 @@ public class GoalFragment extends Fragment {
      */
 
     private void initRecyclerView() {
-        //获取RecyclerView
+        // Get RecyclerView
         mGoalRecyclerView = (RecyclerView) view.findViewById(R.id.goal_recyclerView);
-        //创建adapter
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+//        fab.(mGoalRecyclerView); // Attach the FAB to RecyclerView
+        // Create Adapter
         mGoalRecyclerAdapter = new GoalRecycleAdapter(getActivity(), groupEntityList);
-        //给RecyclerView设置adapter
+        // Set adapter for RecyclerView
         mGoalRecyclerView.setAdapter(mGoalRecyclerAdapter);
         //设置layoutManager,可以设置显示效果，是线性布局、grid布局，还是瀑布流布局
         //参数是：上下文、列表方向（横向还是纵向）、是否倒叙
@@ -84,10 +92,18 @@ public class GoalFragment extends Fragment {
 //        mGoalRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //RecyclerView中没有item的监听事件，需要自己在适配器中写一个监听事件的接口。参数根据自定义
         mGoalRecyclerAdapter.setOnItemClickListener(new GoalRecycleAdapter.OnItemClickListener() {
+            private static final String TAG = "Tesr";
+
             @Override
             public void OnItemClick(View view, GroupEntity data) {
                 //此处进行监听事件的业务处理
-                Toast.makeText(getActivity(), "我是item", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "It's an item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), data.getGroupName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), GoalDetailActivity.class);
+                String jsonString = JSON.toJSONString(data);
+                Log.e(TAG, "simpleEncode: " + jsonString);
+                intent.putExtra("Group", jsonString);
+                startActivity(intent);
             }
         });
     }

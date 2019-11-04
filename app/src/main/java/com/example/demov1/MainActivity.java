@@ -8,15 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import com.example.demov1.Entity.GroupEntity;
+import com.example.demov1.dao.GroupDao;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private FragmentPagerItemAdapter mAdapter;
     private ViewPager mViewPager;
+    private GroupDao groupDao;
+    private ArrayList<GroupEntity> groupEntityList = new ArrayList<GroupEntity>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         initView();
+        groupDao = new GroupDao(this);
+        groupEntityList = initData();
 
     }
 
@@ -40,22 +48,31 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(mAdapter);
-//        mViewPager.setCurrentItem(0);
+//        mViewPager.setCurrentItem(0,true);
 
         SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(mViewPager);
         viewPagerTab.setOnPageChangeListener(mPageChangeListener);
-
     }
 
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
             Fragment page = mAdapter.getPage(position);
-            System.out.println(position);
+            System.out.println("Position:"+position);
             mViewPager.setCurrentItem(position);
         }
     };
+
+    private ArrayList<GroupEntity> initData() {
+
+        ArrayList<GroupEntity> groupEntityList = groupDao.listGroup();
+
+
+        return groupEntityList;
+
+
+    }
 
 
 //    @Override

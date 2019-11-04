@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+            xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            titlebar:titleBarColor="@color/DarkTurquoise"
+            titlebar:titleBarHeight="50dp"
+            titlebar:showBottomLine="false"
+            titlebar:leftType="imageButton"
+            titlebar:centerType="textView"
+            titlebar:centerText="@string/goal_detail"
+            titlebar:centerTextColor="@color/white"
+    >
+    </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
+
+
+</LinearLayout>

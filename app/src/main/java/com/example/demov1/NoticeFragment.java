@@ -12,6 +12,7 @@ public class NoticeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.notice_tab, container, false);
+        System.out.println("This is the Notice Tab");
         return view;
     }
 }

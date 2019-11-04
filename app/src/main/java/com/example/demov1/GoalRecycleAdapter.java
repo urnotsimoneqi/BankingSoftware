@@ -1,12 +1,14 @@
 package com.example.demov1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.demov1.Entity.GroupEntity;
 
@@ -84,19 +86,24 @@ public class GoalRecycleAdapter extends RecyclerView.Adapter<GoalRecycleAdapter.
             groupTargetAmount = (TextView) itemView.findViewById(R.id.target_amount);
             groupMemberNum = (TextView) itemView.findViewById(R.id.group_member);
             progressBar = itemView.findViewById(R.id.progress_bar);
-            //点击事件放在adapter中使用，也可以写个接口在activity中调用
-            //方法一：在adapter中设置点击事件
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //可以选择直接在本位置直接写业务处理
-//                    //Toast.makeText(context,"点击了xxx",Toast.LENGTH_SHORT).show();
-//                    //此处回传点击监听事件
-//                    if(onItemClickListener!=null){
-//                        onItemClickListener.OnItemClick(v, goalEntityList.get(getLayoutPosition()));
-//                    }
-//                }
-//            });
+//            点击事件放在adapter中使用，也可以写个接口在activity中调用
+//            方法一：在adapter中设置点击事件
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //可以选择直接在本位置直接写业务处理
+                    Toast.makeText(context,"Click xxx",Toast.LENGTH_SHORT).show();
+                    //此处回传点击监听事件
+                    if(onItemClickListener!=null) {
+                        onItemClickListener.OnItemClick(v, goalEntityList.get(getLayoutPosition()));
+//                        Intent intent = new Intent(context, GoalDetailActivity.class);
+                        //intent.putExtra("group",goalEntityList.get(getLayoutPosition()));
+//                        context.startActivity(intent);
+                        System.out.println("position:"+goalEntityList.get(getLayoutPosition()));
+                    }
+
+                }
+            });
 
         }
     }

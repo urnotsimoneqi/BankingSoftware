@@ -27,7 +27,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="16dp"
-                    android:background="@mipmap/ic_launcher"
+                    android:src="@drawable/group"
             />
 
             <TextView
@@ -41,14 +41,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/group_photo"
-                    android:layout_below="@id/groupName"/>
+                    android:layout_below="@id/groupName"
+                    android:layout_toEndOf="@+id/group_photo"/>
 
             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                     android:id="@+id/progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_below="@id/group_photo"
-                    app:rcProgressColor="@color/DarkOrange"
+                    app:rcProgressColor="@color/DarkGoldenrod1"
+                    app:rcBackgroundColor="@color/iron"
                     app:rcBackgroundPadding="1dp"/>
             <TextView
                     android:id="@+id/current_amount_label"

@@ -33,6 +33,10 @@ public class GroupEntity {
         this.users = users;
     }
 
+    // fastJson needs to call the default non-parameter constructor of the object when deserializing
+    public GroupEntity() {
+    }
+
     public Integer getGroupId() {
         return groupId;
     }

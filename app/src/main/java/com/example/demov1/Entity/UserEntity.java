@@ -15,6 +15,11 @@ public class UserEntity {
         this.userPassword = userPassword;
     }
 
+    // fastJson needs to call the default non-parameter constructor of the object when deserializing
+    public UserEntity(){
+
+    }
+
     public void setUserId(Integer userId) { this.userId = userId; }
 
     public Integer getGroupId() {

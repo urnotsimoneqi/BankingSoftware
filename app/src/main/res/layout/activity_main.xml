@@ -6,18 +6,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 >
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+            xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            titlebar:titleBarColor="@color/DarkTurquoise"
+            titlebar:titleBarHeight="50dp"
+            titlebar:showBottomLine="false"
+            titlebar:leftType="textView"
+            titlebar:leftText="@string/saving_goals"
+            titlebar:leftTextColor="@color/white"
+    >
+    </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
+
     <com.ogaclejapan.smarttablayout.SmartTabLayout
             android:id="@+id/viewpagertab"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            app:stl_indicatorColor="#40C4FF"
+            app:stl_indicatorColor="@color/white"
             app:stl_indicatorThickness="4dp"
             app:stl_indicatorCornerRadius="2dp"
             app:stl_underlineThickness="0dp"
             app:stl_dividerThickness="0dp"
-            app:stl_defaultTabTextColor="#FC000000"
+            app:stl_defaultTabTextColor="@color/white"
             app:stl_defaultTabTextSize="12sp"
             app:stl_distributeEvenly="true"
+            android:background="@color/DarkTurquoise"
     />
 
     <android.support.v4.view.ViewPager
