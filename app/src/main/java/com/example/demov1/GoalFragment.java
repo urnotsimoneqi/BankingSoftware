@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoalFragment extends Fragment {
-    private View view;//定义view用来设置fragment的layout
-    public RecyclerView mGoalRecyclerView;//定义RecyclerView
+    private View view; // Define view to set up the layout of fragment
+    public RecyclerView mGoalRecyclerView; // Define RecyclerView
     //定义以groupentity实体类为对象的数据集合
     private ArrayList<GroupEntity> groupEntityList = new ArrayList<GroupEntity>();
     //自定义recyclerveiw的适配器
@@ -79,7 +79,10 @@ public class GoalFragment extends Fragment {
     private void initRecyclerView() {
         // Get RecyclerView
         mGoalRecyclerView = (RecyclerView) view.findViewById(R.id.goal_recyclerView);
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        if ( mGoalRecyclerView != null) {
+            System.out.println("Goal RecycleView not null!");
+        }
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_new_group);
 //        fab.(mGoalRecyclerView); // Attach the FAB to RecyclerView
         // Create Adapter
         mGoalRecyclerAdapter = new GoalRecycleAdapter(getActivity(), groupEntityList);

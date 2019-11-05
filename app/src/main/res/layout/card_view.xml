@@ -50,7 +50,8 @@
                     android:layout_height="30dp"
                     android:layout_below="@id/group_photo"
                     app:rcProgressColor="@color/DarkGoldenrod1"
-                    app:rcBackgroundColor="@color/iron"
+                    app:rcRadius="5dp"
+                    app:rcBackgroundColor="@color/WhiteSmoke"
                     app:rcBackgroundPadding="1dp"/>
             <TextView
                     android:id="@+id/current_amount_label"

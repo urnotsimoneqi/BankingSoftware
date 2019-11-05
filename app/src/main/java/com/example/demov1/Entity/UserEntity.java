@@ -2,17 +2,26 @@ package com.example.demov1.Entity;
 
 public class UserEntity {
     private Integer userId;
-    private Integer groupId;
     private String userName;
     private String userPassword;
+    private String userAvatar;
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
+    }
 
     public Integer getUserId() { return userId; }
 
-    public UserEntity(Integer userId, Integer groupId, String userName, String userPassword) {
+    public UserEntity(Integer userId, String userName, String userPassword, String userAvatar) {
         this.userId = userId;
-        this.groupId = groupId;
+//        this.groupId = groupId;
         this.userName = userName;
         this.userPassword = userPassword;
+        this.userAvatar = userAvatar;
     }
 
     // fastJson needs to call the default non-parameter constructor of the object when deserializing
@@ -21,14 +30,6 @@ public class UserEntity {
     }
 
     public void setUserId(Integer userId) { this.userId = userId; }
-
-    public Integer getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
 
     public String getUserName() {
         return userName;

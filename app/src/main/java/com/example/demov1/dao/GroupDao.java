@@ -59,23 +59,38 @@ public class GroupDao {
         return groupList;
     }
 
-    // List Function: list users of certain group
-    public List<UserEntity> listUserInGroup(int groupId) {
+    // Get a list of userId from user_group table
+    public List<Integer> getUserIdOfGroup(int groupId){
         db = sqLiteHelper.getReadableDatabase();
-        userList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("select * from user where group_id ="+groupId, null);
-
-
+        List<Integer> userIds = new ArrayList();
+        Cursor cursor = db.rawQuery("select * from user_group where group_id ="+groupId, null);
         while (cursor.moveToNext()) {
             int userId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("user_id")));
-//            int groupId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_id")));
-            String userName = cursor.getString(cursor.getColumnIndex("user_name"));
-            String userPassword = cursor.getString(cursor.getColumnIndex("user_pwd"));
-
-            UserEntity userEntity = new UserEntity(userId, groupId, userName, userPassword);
-            userList.add(userEntity);
+            userIds.add(userId);
         }
         cursor.close();
+        db.close();
+        return userIds;
+    }
+
+    // Get a list of user entity from certain group, call getUserIdOfGroup
+    public List<UserEntity> listUserInGroup(int groupId) {
+        List<Integer> userIdList = getUserIdOfGroup(groupId);
+        db = sqLiteHelper.getReadableDatabase();
+        userList = new ArrayList<>();
+        for(int i = 0; i<userIdList.size();i++){
+            Cursor cursor = db.rawQuery("select * from user where user_id ="+userIdList.get(i), null);
+            while (cursor.moveToNext()) {
+                int userId = userIdList.get(i);
+                String userName = cursor.getString(cursor.getColumnIndex("user_name"));
+                String userPassword = cursor.getString(cursor.getColumnIndex("user_pwd"));
+                String userAvatar = cursor.getString(cursor.getColumnIndex("user_avatar"));
+                System.out.println(userAvatar);
+                UserEntity userEntity = new UserEntity(userId, userName, userPassword, userAvatar);
+                userList.add(userEntity);
+            }
+            cursor.close();
+        }
         db.close();
         return userList;
     }

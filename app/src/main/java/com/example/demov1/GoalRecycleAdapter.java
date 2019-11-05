@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.demov1.Entity.GroupEntity;
+import com.example.demov1.Entity.UserEntity;
 
 import java.util.ArrayList;
 
@@ -18,11 +19,11 @@ public class GoalRecycleAdapter extends RecyclerView.Adapter<GoalRecycleAdapter.
     private Context context;
     private ArrayList<GroupEntity> goalEntityList;
 
-    //创建构造函数
+    // Create constructor function
     public GoalRecycleAdapter(Context context, ArrayList<GroupEntity> goalEntityList) {
-        //将传递过来的数据，赋值给本地变量
-        this.context = context;//上下文
-        this.goalEntityList = goalEntityList;//实体类数据ArrayList
+        // Assign the value of passed data to local variable
+        this.context = context; // context
+        this.goalEntityList = goalEntityList; // Entity class
     }
 
     /**

@@ -15,6 +15,7 @@
             titlebar:titleBarHeight="50dp"
             titlebar:showBottomLine="false"
             titlebar:leftType="textView"
+            titlebar:centerTextSize="18sp"
             titlebar:leftText="@string/saving_goals"
             titlebar:leftTextColor="@color/white"
     >

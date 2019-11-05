@@ -1,22 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-            xmlns:titlebar="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/titlebar"
-            android:layout_width="match_parent"
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+        <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+                xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/title_bar_goal_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                titlebar:titleBarColor="@color/DarkTurquoise"
+                titlebar:titleBarHeight="50dp"
+                titlebar:showBottomLine="false"
+                titlebar:leftType="imageButton"
+                titlebar:leftImageResource="@drawable/return_btn"
+                titlebar:centerType="textView"
+                titlebar:centerText="@string/goal_detail"
+                titlebar:centerTextSize="18sp"
+                titlebar:centerTextColor="@color/white"
+        >
+        </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_bar_goal_detail"
+                android:padding="16dp"
+        >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/group_progress_label"
+                    android:text="@string/goal_progress"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp"/>
+            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/group_progress_label"
+                    app:rcRadius="5dp"
+                    app:rcProgressColor="@color/DarkGoldenrod1"
+                    app:rcBackgroundColor="@color/WhiteSmoke"
+                    app:rcBackgroundPadding="1dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/progress_bar"
+                    android:id="@+id/group_completed_label"
+                    android:text="@string/goal_completed"
+                    android:textColor="@color/monsoon"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/group_completed_label"
+                    android:layout_below="@+id/progress_bar"
+                    android:id="@+id/group_completed"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/group_completed"
+                    android:id="@+id/group_member_label"
+                    android:text="@string/group_member"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp"/>
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/member_recyclerView"
+                    android:layout_below="@+id/group_member_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_member"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            titlebar:titleBarColor="@color/DarkTurquoise"
-            titlebar:titleBarHeight="50dp"
-            titlebar:showBottomLine="false"
-            titlebar:leftType="imageButton"
-            titlebar:centerType="textView"
-            titlebar:centerText="@string/goal_detail"
-            titlebar:centerTextColor="@color/white"
-    >
-    </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
+            android:src="@drawable/ic_add_black_24dp"
+            app:backgroundTint="@color/DarkGoldenrod1"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="24dp"
+            android:layout_marginRight="24dp"
+            app:rippleColor="@color/colorPrimary"
+            app:elevation="5dp"
+            app:borderWidth="0dp"
+            app:fabSize="normal"
+            app:pressedTranslationZ="10dp">
 
+    </android.support.design.widget.FloatingActionButton>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
