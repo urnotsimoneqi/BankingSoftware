@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:float="http://schemas.android.com/apk/res-auto"
+                android:background="@color/White"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+                xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/title_bar_new_goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                titlebar:titleBarColor="@color/DarkTurquoise"
+                titlebar:titleBarHeight="50dp"
+                titlebar:showBottomLine="false"
+                titlebar:leftType="imageButton"
+                titlebar:leftImageResource="@drawable/close_btn"
+                titlebar:centerType="textView"
+                titlebar:centerText="@string/new_goal"
+                titlebar:centerTextSize="18sp"
+                titlebar:centerTextColor="@color/white"
+        >
+        </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_below="@+id/title_bar_new_goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="56dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
+
+            <!--  Goal Name Label -->
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/goal_name"
+                          android:textColor="@color/black"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:hint="@string/new_goal_name"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <!--  Goal Target Label -->
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/goal_target"
+                          android:layout_below="@+id/goal_name"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:hint="@string/new_goal_target"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <!--  CheckBox Public or Private Goal -->
+            <CheckBox
+                    android:id="@+id/checkbox_private"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/private_goal"
+                />
+
+            <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_create_goal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:padding="12dp"
+                    android:text="@string/create_goal"
+                    android:textColor="@color/White"
+                    android:background="@color/DarkGoldenrod1"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

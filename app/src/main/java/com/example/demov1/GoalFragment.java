@@ -52,24 +52,8 @@ public class GoalFragment extends Fragment {
      * TODO Test Data
      */
     private ArrayList<GroupEntity> initData() {
-//        ArrayList<GroupEntity> groupEntityList = new ArrayList<>();
-//        List<UserEntity> userEntityList1 = new ArrayList<>();
-//        List<UserEntity> userEntityList2 = new ArrayList<>();
-//        userEntityList1.add(new UserEntity(1,1,"user 1","123456"));
-//        userEntityList1.add(new UserEntity(2,1,"user 2","123456"));
-//        userEntityList1.add(new UserEntity(3,1,"user 3","123456"));
-//        userEntityList1.add(new UserEntity(4,1,"user 4","123456"));
-//        userEntityList1.add(new UserEntity(5,1,"user 5","123456"));
-//        userEntityList2.add(new UserEntity(6,2,"user 6","123456"));
-//        groupEntityList.add(new GroupEntity(1, "Goal 1", 3000, 1000, userEntityList1));
-//        groupEntityList.add(new GroupEntity(2, "Goal 2", 3000, 1000, userEntityList2));
-
         ArrayList<GroupEntity> groupEntityList = groupDao.listGroup();
-
-
         return groupEntityList;
-
-
     }
 
     /**
@@ -109,55 +93,15 @@ public class GoalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // Set on listener for floating action bar
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CreateGoalActivity.class);
+                startActivity(intent);
+            }
+
+        });
     }
-
-
 }
-
-//public class GoalFragment extends Fragment {
-
-//    private CardView cardView;
-//    private RecyclerView recyclerView;
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.goal_tab, container, false);
-//
-////        List<GroupEntity> myGoalList = initializeData();
-//
-//        List<GroupEntity> groups = initializeData();
-//
-//        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        recyclerView.setLayoutManager(layoutManager);
-//        GoalAdapter adapter = new GoalAdapter(groups);
-//        recyclerView.setAdapter(adapter);
-//        //新建适配器
-////        adapter = new MyNewsDataAdapter(MainActivity.this);
-////        //ListView
-////        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-////        recyclerView.setAdapter(new GoalAdapter(this, myGoalList ));
-////        //添加数据到适配器中，(这个方法在适配器中)
-////        adapter.addDataToAdapter(dataBeens, true);
-//
-//
-//
-//        return view;
-//    }
-//
-//    private List<GroupEntity> initializeData() {
-//        List<GroupEntity> myGoalList = new ArrayList<>();
-//        myGoalList.add(new GroupEntity(1,"Goal 1", 3000, 1000));
-//        myGoalList.add(new GroupEntity(2,"Goal 2", 3000, 1000));
-//
-//        return myGoalList;
-//    }
-//
-//
-//
-//
-//
-//
-//}

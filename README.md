@@ -7,14 +7,19 @@ password: 123456
 
 ## Goal Tab
 
-- Implement UI of goal list
+- Implement listing goals
 - Connect to sqlite database
-- Implement UI of goal detail
+- Implement showing goal detail
+- Implement UI of creating Goal
 
 ### In Progress
-- UI of creating Goal
+- Update database: need to add a new table "goal"
 - UI of sharing results to social platform
+- UI of inviting friends
 
 ### Bug to fix
 - Need to tap the last tab first otherwise the view of first tab not show
-## Group Tab
+## To do: Group Tab
+- list group
+- search group
+- join group

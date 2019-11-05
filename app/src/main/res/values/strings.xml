@@ -9,4 +9,9 @@
     <string name="goal_progress">Goal in Progress</string>
     <string name="goal_completed">Completed:&#160;</string>
     <string name="group_member">Group Member:&#160;</string>
+    <string name="new_goal"><b>New Goal</b></string>
+    <string name="new_goal_name">Your goal\'s name</string>
+    <string name="new_goal_target">Your target amount</string>
+    <string name="create_goal"><b>CREATE GOAL</b></string>
+    <string name="private_goal">Set as Private Goal</string>
 </resources>
