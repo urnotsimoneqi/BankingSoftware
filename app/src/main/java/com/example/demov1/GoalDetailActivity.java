@@ -9,35 +9,63 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.demov1.Entity.GroupEntity;
 import com.alibaba.fastjson.JSON;
 import com.example.demov1.Entity.UserEntity;
 import com.example.demov1.dao.GroupDao;
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GoalDetailActivity extends AppCompatActivity {
     public RecyclerView mUserRecyclerView;
+    private RoundCornerProgressBar progressBar;
     private List<UserEntity> userEntityList = new ArrayList<>();
     private UserRecycleAdapter mUserRecyclerAdapter;
     private GroupDao groupDao;
+    private GroupEntity group;
     private static final String TAG = "Test";
+    CommonTitleBar _returnButton;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String groupJson = getIntent().getStringExtra("Group");
-        GroupEntity group = JSON.parseObject(groupJson, GroupEntity.class);
-        Log.d(TAG, "Group Name->" + group.getGroupName());
-        Log.d(TAG, "Group Id->" + group.getGroupId());
-        int groupId = group.getGroupId();
-        Log.d(TAG, "Group Member 1->" + group.getUsers().get(0).getUserName());
-        userEntityList = group.getUsers();
-        Log.d(TAG, "Group Size->" + userEntityList.size());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_detail);
+        String groupJson = getIntent().getStringExtra("Group");
+        group = JSON.parseObject(groupJson, GroupEntity.class);
+//        Log.d(TAG, "Group Name->" + group.getGroupName());
+//        Log.d(TAG, "Group Id->" + group.getGroupId());
+//        int groupId = group.getGroupId();
+//        int groupStatus = group.getGroupStatus();
+        userEntityList = group.getUsers();
+//        Log.d(TAG, "Group Size->" + userEntityList.size());
+        progressBar = findViewById(R.id.detail_progress_bar);
+        progressBar.setMax(group.getTargetAmount());
+        progressBar.setProgress(group.getCurrentAmount());
         // Initialize recyclerView
         initRecyclerView();
+        _returnButton = findViewById(R.id.title_bar_goal_detail);
+        _returnButton.setListener(new CommonTitleBar.OnTitleBarListener() {
+            @Override
+            public void onClicked(View v, int action, String extra) {
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                    GoalDetailActivity.this.finish();
+                }
+            }
+        });
+
+        fab = findViewById(R.id.fab_save_money);
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GoalDetailActivity.this, SaveMoneyActivity.class);
+                startActivity(intent);
+            }
+
+        });
     }
 
     /**
@@ -58,9 +86,9 @@ public class GoalDetailActivity extends AppCompatActivity {
 //        if (mUserRecyclerView == null) {
 //            System.out.println("User RecycleView is null!");
 //        }
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab_add_member);
+//        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab_add_member);
         // Create Adapter
-        mUserRecyclerAdapter = new UserRecycleAdapter(this, userEntityList);
+        mUserRecyclerAdapter = new UserRecycleAdapter(this, userEntityList, group.getGroupId());
         // Set layoutManager
         mUserRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // Set adapter for RecyclerView
@@ -70,7 +98,7 @@ public class GoalDetailActivity extends AppCompatActivity {
             private static final String TAG = "Test";
 
             @Override
-            public void OnItemClick(View view, UserEntity data) {
+            public void OnItemClick(View view, UserEntity data, int groupId) {
                 //此处进行监听事件的业务处理
 //                Toast.makeText(this, data.getUserName(), Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent(this, UserDetailActivity.class);

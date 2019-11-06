@@ -1,7 +1,9 @@
 package com.example.demov1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demov1.Entity.GroupEntity;
 import com.example.demov1.Entity.UserEntity;
 import com.example.demov1.dao.GroupDao;
+import com.example.demov1.dao.UserDao;
 
 
 import java.util.ArrayList;
@@ -32,17 +35,23 @@ public class GoalFragment extends Fragment {
     //自定义recyclerveiw的适配器
     private GoalRecycleAdapter mGoalRecyclerAdapter;
     private GroupDao groupDao;
+    private UserDao userDao;
+    public static final String MyPREFERENCES = "user_details";
+    SharedPreferences sharedPreferences;
+    private int userId = 1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Get the layout of fragment
         view = inflater.inflate(R.layout.goal_tab, container, false);
-        System.out.println("This is the Goal Tab");
         groupDao = new GroupDao(getActivity());
-        // Load data
-        groupEntityList = initData();
-        // Initialize recycleview
+        sharedPreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Activity.MODE_PRIVATE);
+        String username = sharedPreferences.getString("email", "");
+        userDao = new UserDao(getActivity());
+//        userId = userDao.findUserId(username);
+        System.out.println("Current login user Id"+userId);
+        groupEntityList = initData(userId); // Load data
         initRecyclerView();
         return view;
     }
@@ -50,8 +59,10 @@ public class GoalFragment extends Fragment {
     /**
      * TODO Test Data
      */
-    private ArrayList<GroupEntity> initData() {
-        ArrayList<GroupEntity> groupEntityList = groupDao.listGroup();
+    private ArrayList<GroupEntity> initData(int userId) {
+        ArrayList<GroupEntity> groupEntityList = groupDao.listMyGroups(userId);
+        System.out.println("Intializing my groups ......");
+        System.out.println(groupEntityList.size());
         return groupEntityList;
     }
 
@@ -84,7 +95,7 @@ public class GoalFragment extends Fragment {
             public void OnItemClick(View view, GroupEntity data) {
                 //此处进行监听事件的业务处理
 //                Toast.makeText(getActivity(), "It's an item", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), data.getGroupName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), data.getGroupName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), GoalDetailActivity.class);
                 String jsonString = JSON.toJSONString(data);
                 Log.e(TAG, "simpleEncode: " + jsonString);

@@ -3,6 +3,7 @@ package com.example.demov1.Entity;
 public class GoalEntity {
     private Integer goalId;
     private Integer userId;
+    private Integer groupId; // groupId=0 represents it's an individual goal? / can be null
     private String goalName;
     private Integer goalTarget;
     private Integer goalCurrent;
@@ -23,6 +24,14 @@ public class GoalEntity {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     public String getGoalName() {

@@ -14,24 +14,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.alibaba.fastjson.JSON;
+import com.example.demov1.Entity.GoalEntity;
+import com.example.demov1.Entity.GroupEntity;
 import com.example.demov1.Entity.UserEntity;
+import com.example.demov1.dao.GoalDao;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.myViewHodler>{
+public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.myViewHodler> {
     private Context context;
     private List<UserEntity> userEntityList;
+    private GoalDao goalDao;
+    private int groupId;
 //    private LayoutInflater mInflater;
 
     // Create constructor function, data is passed into the constructor
-    public UserRecycleAdapter(Context context, List<UserEntity> userEntityList) {
+    public UserRecycleAdapter(Context context, List<UserEntity> userEntityList, int groupId) {
         // Assign the value of passed data to local variable
         this.context = context; // context
 //        this.mInflater = LayoutInflater.from(context);
         this.userEntityList = userEntityList; // Entity class
+        this.groupId = groupId;
     }
 
     /**
@@ -45,7 +52,7 @@ public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.
     public UserRecycleAdapter.myViewHodler onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create customized layout
 //        View memberView = mInflater.inflate(R.layout.group_member, parent, false);
-        View memberView = View.inflate(context, R.layout.group_member,null);
+        View memberView = View.inflate(context, R.layout.group_member, null);
         return new UserRecycleAdapter.myViewHodler(memberView);
     }
 
@@ -59,6 +66,7 @@ public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.
     public void onBindViewHolder(UserRecycleAdapter.myViewHodler holder, int position) {
         // Bind data based on click location
         UserEntity data = userEntityList.get(position);
+
         AssetManager assetManager = context.getAssets();
         String path = data.getUserAvatar(); // Pixel: 144*144
         InputStream inputStream = null;
@@ -69,11 +77,21 @@ public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.
         }
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
         holder.userAvatar.setImageBitmap(bitmap);
-//        setImageResource(R.drawable.xxx)
         holder.userName.setText(data.getUserName());
-        holder.goalCompleted.setText("50%");
-        holder.progressBar.setMax(2000);
-        holder.progressBar.setProgress(1000);
+
+        goalDao = new GoalDao(context);
+        List<GoalEntity> individualGoalList = goalDao.findGoalByUserId(data.getUserId());
+        for (int i = 0; i < individualGoalList.size(); i++) {
+            GoalEntity individualGoal = individualGoalList.get(i);
+            if(individualGoal.getGroupId() == groupId){
+                holder.progressBar.setMax(individualGoal.getGoalTarget());
+                holder.progressBar.setProgress(individualGoal.getGoalCurrent());
+            }
+        }
+//        holder.goalCompleted.setText("50%");
+
+//        holder.progressBar.setMax(2000);
+//        holder.progressBar.setProgress(1000);
     }
 
     /**
@@ -107,12 +125,12 @@ public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.
                     //可以选择直接在本位置直接写业务处理
 //                    Toast.makeText(context,"Click xxx",Toast.LENGTH_SHORT).show();
                     //此处回传点击监听事件
-                    if(onItemClickListener!=null) {
-                        onItemClickListener.OnItemClick(v, userEntityList.get(getLayoutPosition()));
+                    if (onItemClickListener != null) {
+                        onItemClickListener.OnItemClick(v, userEntityList.get(getLayoutPosition()), groupId);
 //                        Intent intent = new Intent(context, GoalDetailActivity.class);
                         //intent.putExtra("group",userEntityList.get(getLayoutPosition()));
 //                        context.startActivity(intent);
-                        System.out.println("position:"+userEntityList.get(getLayoutPosition()));
+                        System.out.println("position:" + userEntityList.get(getLayoutPosition()));
                     }
 
                 }
@@ -131,7 +149,7 @@ public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.
          * @param view 点击的item的视图
          * @param data 点击的item的数据
          */
-        public void OnItemClick(View view, UserEntity data);
+        public void OnItemClick(View view, UserEntity data, int groupStatus);
     }
 
     //需要外部访问，所以需要设置set方法，方便调用

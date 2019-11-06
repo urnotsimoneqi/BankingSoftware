@@ -2,11 +2,19 @@
 <resources>
   <color name="LightGrey">#D3D3D3</color>
   <color name="DarkTurquoise">#00CED1</color>
+  <color name="Turquoise1">#00F5FF</color>
+  <color name="Turquoise2">#00E5EE</color>
+  <color name="Turquoise3">#00C5CD</color>
+  <color name="Turquoise4">#00868B</color>
 
-  <color name="primary">#E43F3F</color>
-  <color name="primary_dark">#E12929</color>
-  <color name="primary_darker">#CC1D1D</color>
+<!--  <color name="primary">#E43F3F</color>-->
+<!--  <color name="primary_dark">#E12929</color>-->
+<!--  <color name="primary_darker">#CC1D1D</color>-->
   <color name="accent">#FFFFFF</color>
+
+  <color name="primary">#48D1CC</color>
+  <color name="primary_dark">#40E0D0</color>
+  <color name="primary_darker">#00CED1</color>
 
   <color name="black">#000000</color>
   <color name="jet">#222222</color>
@@ -258,10 +266,6 @@
   <color name="CadetBlue2">#8EE5EE</color>
   <color name="CadetBlue3">#7AC5CD</color>
   <color name="CadetBlue4">#53868B</color>
-  <color name="Turquoise1">#00F5FF</color>
-  <color name="Turquoise2">#00E5EE</color>
-  <color name="Turquoise3">#00C5CD</color>
-  <color name="Turquoise4">#00868B</color>
   <color name="Cyan1">#00FFFF</color>
   <color name="Cyan2">#00EEEE</color>
   <color name="Cyan3">#00CDCD</color>

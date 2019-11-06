@@ -27,13 +27,20 @@
         >
         </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
 
-        <RelativeLayout
+        <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title_bar_goal_detail"
+                android:id="@+id/detail_background"
+                android:background="@drawable/background1"
+        />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_background"
                 android:padding="16dp"
         >
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -42,7 +49,7 @@
                     android:textColor="@color/Black"
                     android:textSize="18sp"/>
             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                    android:id="@+id/progress_bar"
+                    android:id="@+id/detail_progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_below="@+id/group_progress_label"
@@ -53,7 +60,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/progress_bar"
+                    android:layout_below="@+id/detail_progress_bar"
                     android:id="@+id/group_completed_label"
                     android:text="@string/goal_completed"
                     android:textColor="@color/monsoon"/>
@@ -61,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/group_completed_label"
-                    android:layout_below="@+id/progress_bar"
+                    android:layout_below="@+id/detail_progress_bar"
                     android:id="@+id/group_completed"/>
             <TextView
                     android:layout_width="wrap_content"
@@ -81,7 +88,7 @@
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add_member"
+            android:id="@+id/fab_save_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_black_24dp"

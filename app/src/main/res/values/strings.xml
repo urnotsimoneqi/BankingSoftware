@@ -14,4 +14,8 @@
     <string name="new_goal_target">Your target amount</string>
     <string name="create_goal"><b>CREATE GOAL</b></string>
     <string name="private_goal">Set as Private Goal</string>
+    <string name="save_now">Save Now</string>
+    <string-array name="currency">
+        <item>SGD</item>
+    </string-array>
 </resources>

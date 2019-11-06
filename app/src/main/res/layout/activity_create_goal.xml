@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:float="http://schemas.android.com/apk/res-auto"
-                android:background="@color/White"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -42,6 +42,7 @@
                     android:layout_marginBottom="8dp">
                 <EditText android:id="@+id/goal_name"
                           android:textColor="@color/black"
+                          android:textColorHint="@color/iron"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:hint="@string/new_goal_name"/>
@@ -54,9 +55,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                 <EditText android:id="@+id/goal_target"
+                          android:textColor="@color/black"
                           android:layout_below="@+id/goal_name"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
+                          android:textColorHint="@color/iron"
                           android:hint="@string/new_goal_target"/>
             </android.support.design.widget.TextInputLayout>
 

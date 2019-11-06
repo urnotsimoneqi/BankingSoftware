@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:background="@color/White"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+            xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/title_bar_goal_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            titlebar:titleBarColor="@color/DarkTurquoise"
+            titlebar:titleBarHeight="50dp"
+            titlebar:showBottomLine="false"
+            titlebar:leftType="imageButton"
+            titlebar:leftImageResource="@drawable/return_btn"
+            titlebar:centerType="textView"
+            titlebar:centerText="@string/save_now"
+            titlebar:centerTextSize="18sp"
+            titlebar:centerTextColor="@color/white"
+    >
+    </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_bar_goal_detail"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+        <TextView
+                android:id="@+id/saving_amount_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="You are saving"
+                android:textColor="@color/monsoon"
+                android:textSize="18sp"/>
+        <EditText
+                android:id="@+id/saving_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/saving_amount_label"
+                android:textSize="48dp"
+                android:textColor="@color/black"
+        >
+        </EditText>
+
+        <TextView
+                android:id="@+id/currency_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/saving_amount"
+                android:text="Currency"
+                android:textColor="@color/monsoon"
+                android:textSize="18sp"/>
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinner"
+                android:layout_below="@+id/currency_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ms_text_color="@color/black"
+                app:ms_arrow_tint="@color/monsoon"
+        />
+    </RelativeLayout>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:background="@color/DarkGoldenrod1"
+            android:text="SAVE"/>
+</RelativeLayout>

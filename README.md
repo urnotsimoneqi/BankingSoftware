@@ -6,20 +6,25 @@ username: user1@demo.com
 password: 123456
 
 ## Goal Tab
-
+### Done
 - Implement listing goals
 - Connect to sqlite database
 - Implement showing goal detail
 - Implement UI of creating Goal
+- Implement UI of saving money
 
 ### In Progress
-- Update database: need to add a new table "goal"
 - UI of sharing results to social platform
 - UI of inviting friends
 
-### Bug Fixed
-- Need to tap the last tab first otherwise the view of first tab not show
-## To do: Group Tab
+## Group Tab
+### Done
 - list group
-- search group
-- join group
+### To Do
+- Search group
+- Join group
+
+## Bug Fixed
+- Need to tap the last tab first otherwise the view of first tab not show
+
+

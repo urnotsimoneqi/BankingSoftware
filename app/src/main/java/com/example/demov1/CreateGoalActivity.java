@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.*;
 import butterknife.BindView;
 import com.example.demov1.dao.GoalDao;
+import com.example.demov1.dao.GroupDao;
 import com.example.demov1.dao.UserDao;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
@@ -18,6 +19,7 @@ public class CreateGoalActivity extends AppCompatActivity {
     SharedPreferences preferences;
     private UserDao userDao;
     private GoalDao goalDao;
+    private GroupDao groupDao;
     int goalIfPublic = 0; // 0 represents the goal is public
     int userId;
 
@@ -47,6 +49,7 @@ public class CreateGoalActivity extends AppCompatActivity {
         String username = preferences.getString("email", "");
         goalDao = new GoalDao(this);
         userDao = new UserDao(this);
+        groupDao = new GroupDao(this);
         userId = userDao.findUserId(username);
         _goalNameText = findViewById(R.id.goal_name);
         _goalTargetText = findViewById(R.id.goal_target);
@@ -55,12 +58,14 @@ public class CreateGoalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (goalDao.createGoal(userId, _goalNameText.getText().toString(), Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic)) {
+                    groupDao.createGroup(_goalNameText.getText().toString(), Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic);
                     // create goal success, page jump
 //                    Intent intent = new Intent(CreateGoalActivity.this, GoalFragment.class);
 //                    startActivity(intent);
-                    Intent intent = new Intent(CreateGoalActivity.this, MainActivity.class);
-                    intent.putExtra("id",1);
-                    startActivity(intent);
+                    CreateGoalActivity.this.finish();
+//                    Intent intent = new Intent(CreateGoalActivity.this, GoalFragment.class);
+//                    intent.putExtra("id",1);
+//                    startActivity(intent);
                 } else {
                     // fail to add group, show prompt
                     Toast.makeText(CreateGoalActivity.this, "Failed", Toast.LENGTH_SHORT).show();

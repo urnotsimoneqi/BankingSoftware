@@ -93,7 +93,7 @@ public class GoalRecycleAdapter extends RecyclerView.Adapter<GoalRecycleAdapter.
                 @Override
                 public void onClick(View v) {
                     //可以选择直接在本位置直接写业务处理
-                    Toast.makeText(context,"Click xxx",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"Click xxx",Toast.LENGTH_SHORT).show();
                     //此处回传点击监听事件
                     if(onItemClickListener!=null) {
                         onItemClickListener.OnItemClick(v, goalEntityList.get(getLayoutPosition()));

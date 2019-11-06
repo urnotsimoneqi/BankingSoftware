@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/activity_main"
+        android:background="@color/LightGrey"
 >
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
             xmlns:titlebar="http://schemas.android.com/apk/res-auto"
@@ -15,10 +16,12 @@
             titlebar:titleBarColor="@color/DarkTurquoise"
             titlebar:titleBarHeight="50dp"
             titlebar:showBottomLine="false"
-            titlebar:leftType="textView"
+            titlebar:leftType="imageButton"
+            titlebar:leftImageResource="@drawable/menu"
+            titlebar:centerType="textView"
             titlebar:centerTextSize="18sp"
-            titlebar:leftText="@string/saving_goals"
-            titlebar:leftTextColor="@color/white"
+            titlebar:centerText="@string/saving_goals"
+            titlebar:centerTextColor="@color/white"
     >
     </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
 

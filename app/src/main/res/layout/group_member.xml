@@ -20,7 +20,7 @@
             android:id="@+id/user_name"
             android:layout_toRightOf="@+id/user_avatar"
             android:layout_toEndOf="@+id/user_avatar"
-            android:text="@string/group_member"
+            android:textColor="@color/Black"
     />
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/progress_bar_member"
@@ -38,6 +38,7 @@
             android:layout_below="@+id/progress_bar_member"
             android:layout_toRightOf="@+id/user_avatar"
             android:id="@+id/goal_completed_label"
+            android:textColor="@color/monsoon"
             android:text="@string/goal_completed"/>
     <TextView
             android:layout_width="wrap_content"
