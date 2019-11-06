@@ -7,6 +7,8 @@ public class GroupEntity {
     private String groupName;
     private Integer targetAmount;
     private Integer currentAmount;
+    private Integer groupStatus;
+    private Integer groupIfPublic;
     private List<UserEntity> users;
 
     public List<UserEntity> getUsers() {
@@ -59,6 +61,22 @@ public class GroupEntity {
 
     public void setTargetAmount(Integer targetAmount) {
         this.targetAmount = targetAmount;
+    }
+
+    public Integer getGroupStatus() {
+        return groupStatus;
+    }
+
+    public void setGroupStatus(Integer groupStatus) {
+        this.groupStatus = groupStatus;
+    }
+
+    public Integer getGroupIfPublic() {
+        return groupIfPublic;
+    }
+
+    public void setGroupIfPublic(Integer groupIfPublic) {
+        this.groupIfPublic = groupIfPublic;
     }
 
     @Override

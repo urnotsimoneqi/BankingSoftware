@@ -17,7 +17,7 @@ password: 123456
 - UI of sharing results to social platform
 - UI of inviting friends
 
-### Bug to fix
+### Bug Fixed
 - Need to tap the last tab first otherwise the view of first tab not show
 ## To do: Group Tab
 - list group

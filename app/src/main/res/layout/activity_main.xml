@@ -5,6 +5,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/activity_main"
 >
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
             xmlns:titlebar="http://schemas.android.com/apk/res-auto"
@@ -21,20 +22,43 @@
     >
     </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
-            android:id="@+id/viewpagertab"
+    <!--TabLayout-->
+    <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:stl_indicatorColor="@color/white"
-            app:stl_indicatorThickness="4dp"
-            app:stl_indicatorCornerRadius="2dp"
-            app:stl_underlineThickness="0dp"
-            app:stl_dividerThickness="0dp"
-            app:stl_defaultTabTextColor="@color/white"
-            app:stl_defaultTabTextSize="12sp"
-            app:stl_distributeEvenly="true"
+            android:layout_height="wrap_content"
             android:background="@color/DarkTurquoise"
-    />
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorHeight="4dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/WhiteSmoke">
+
+<!--        <android.support.design.widget.TabItem-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:text="GOAL"/>-->
+<!--        <android.support.design.widget.TabItem-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:text="GROUP"/>-->
+    </android.support.design.widget.TabLayout>
+
+<!--    <com.ogaclejapan.smarttablayout.SmartTabLayout-->
+<!--            android:id="@+id/viewpagertab"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="48dp"-->
+<!--            app:stl_indicatorColor="@color/white"-->
+<!--            app:stl_indicatorThickness="4dp"-->
+<!--            app:stl_indicatorCornerRadius="2dp"-->
+<!--            app:stl_underlineThickness="0dp"-->
+<!--            app:stl_dividerThickness="0dp"-->
+<!--            app:stl_defaultTabTextColor="@color/white"-->
+<!--            app:stl_defaultTabTextSize="12sp"-->
+<!--            app:stl_distributeEvenly="true"-->
+<!--            android:background="@color/DarkTurquoise"-->
+<!--    />-->
 
     <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"

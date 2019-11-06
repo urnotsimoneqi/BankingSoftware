@@ -2,6 +2,7 @@ package com.example.demov1;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 //import androidx.appcompat.app.AppCompatActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private LoginDao dao;
+    SharedPreferences sharedPreferences;
+    public static final String MyPREFERENCES = "user_details";
 
     @BindView(R.id.input_email)
     EditText _emailText;
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         dao = new LoginDao(this);
+        sharedPreferences = getSharedPreferences(MyPREFERENCES,MODE_PRIVATE); // Save current login user info
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -79,10 +83,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
         if (dao.login(email,password)){
-//            System.out.println("successful");
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("email", email);
+            editor.putString("password", password);
+            editor.commit();
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
+
                             // On complete call either onLoginSuccess or onLoginFailed
                             onLoginSuccess();
                             // onLoginFailed();

@@ -36,15 +36,14 @@ public class GoalFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //获取fragment的layout
+        // Get the layout of fragment
         view = inflater.inflate(R.layout.goal_tab, container, false);
         System.out.println("This is the Goal Tab");
-        //对recycleview进行配置
-        initRecyclerView();
         groupDao = new GroupDao(getActivity());
-        //模拟数据
+        // Load data
         groupEntityList = initData();
-        System.out.println("groupsize"+groupEntityList.size());
+        // Initialize recycleview
+        initRecyclerView();
         return view;
     }
 

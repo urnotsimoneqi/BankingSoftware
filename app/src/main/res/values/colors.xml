@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="LightGrey">#D3D3D3</color>
+  <color name="DarkTurquoise">#00CED1</color>
 
   <color name="primary">#E43F3F</color>
   <color name="primary_dark">#E12929</color>
@@ -73,7 +74,7 @@
   <color name="LightBlue">#ADD8E6</color>
   <color name="PowderBlue">#B0E0E6</color>
   <color name="PaleTurquoise">#AFEEEE</color>
-  <color name="DarkTurquoise">#00CED1</color>
+
   <color name="MediumTurquoise">#48D1CC</color>
   <color name="Turquoise">#40E0D0</color>
   <color name="Cyan">#00FFFF</color>
