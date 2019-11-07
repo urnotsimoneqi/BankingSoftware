@@ -12,10 +12,12 @@ password: 123456
 - Implement showing goal detail
 - Implement UI of creating Goal
 - Implement UI of saving money
+- Implement sharing to social platform
 
-### In Progress
-- UI of sharing results to social platform
-- UI of inviting friends
+### To Do
+- Inviting friends
+- Update the UI of saving money and goal detail
+- Revise some code logic of creating goal
 
 ## Group Tab
 ### Done
@@ -23,6 +25,7 @@ password: 123456
 - Join group
 ### To Do
 - Search group
+- Revise some code logic of joining group
 ## Bug to Fix
 
 ## Bug Fixed
