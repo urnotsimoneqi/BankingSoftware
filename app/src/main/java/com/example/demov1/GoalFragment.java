@@ -140,9 +140,10 @@ public class GoalFragment extends Fragment {
             Log.e("TAG", "onStart: ++++++++++++++++++" );
             //ListView适配器刷新，更新答题状态显示
             if (groupEntityList != null ){
-//                groupEntityList.clear();
+                groupEntityList.clear();
                 System.out.println("这里可以执行刷新操作");
-                this.groupEntityList = groupDao.listMyGroups(userId);
+                ArrayList<GroupEntity> data = groupDao.listMyGroups(userId);
+                groupEntityList.addAll(data);
                 mGoalRecyclerAdapter.notifyDataSetChanged();
             }
             mGoalRecyclerAdapter.notifyDataSetChanged();

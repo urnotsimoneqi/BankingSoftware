@@ -24,9 +24,8 @@ password: 123456
 ### To Do
 - Search group
 ## Bug to Fix
-- The view of Goal fragment does not refresh when join a group while the data updated 
 
 ## Bug Fixed
 - Need to tap the last tab first otherwise the view of first tab not show
-
+- Goal Tab: The view of Goal fragment does not refresh but the data updated(join a group)
 
