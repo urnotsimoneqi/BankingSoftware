@@ -46,11 +46,11 @@
                     android:layout_toRightOf="@+id/group_photo"
                     android:layout_below="@id/groupName"
                     android:layout_toEndOf="@+id/group_photo"/>
-            <Button android:layout_width="5dp"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/group_member"
-                    android:layout_toEndOf="@+id/group_member"
-                    android:background="@color/Turquoise4"
+            <Button
+                    android:id="@+id/join_group_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@color/Turquoise3"
                     android:text="JOIN"
                     android:layout_alignParentRight = "true">
 

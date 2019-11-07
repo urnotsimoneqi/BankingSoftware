@@ -127,7 +127,6 @@ public class GroupDao {
                 String userName = cursor.getString(cursor.getColumnIndex("user_name"));
                 String userPassword = cursor.getString(cursor.getColumnIndex("user_pwd"));
                 String userAvatar = cursor.getString(cursor.getColumnIndex("user_avatar"));
-                System.out.println(userAvatar);
                 UserEntity userEntity = new UserEntity(userId, userName, userPassword, userAvatar);
                 userList.add(userEntity);
             }
@@ -137,7 +136,18 @@ public class GroupDao {
         return userList;
     }
 
-
+    // User join a group
+    public boolean joinGroup(int userId, int groupId) {
+        db = sqLiteHelper.getWritableDatabase();
+        if (db.isOpen()) {
+            db.execSQL("insert into user_group (user_id, group_id) values(?,?)", new Object[]{userId, groupId});
+            System.out.println("User join a group");
+            db.close();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 

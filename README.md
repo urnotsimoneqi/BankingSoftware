@@ -19,10 +19,12 @@ password: 123456
 
 ## Group Tab
 ### Done
-- list group
+- List group
+- Join group
 ### To Do
 - Search group
-- Join group
+## Bug to Fix
+- The view of Goal fragment does not refresh when join a group while the data updated 
 
 ## Bug Fixed
 - Need to tap the last tab first otherwise the view of first tab not show

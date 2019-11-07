@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.example.demov1.Entity.GroupEntity;
@@ -40,11 +41,16 @@ public class GoalFragment extends Fragment {
     SharedPreferences sharedPreferences;
     private int userId = 1;
 
+    private boolean isCreated=false;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Get the layout of fragment
         view = inflater.inflate(R.layout.goal_tab, container, false);
+        // 标记
+        isCreated = true;
+
         groupDao = new GroupDao(getActivity());
         sharedPreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Activity.MODE_PRIVATE);
         String username = sharedPreferences.getString("email", "");
@@ -71,6 +77,7 @@ public class GoalFragment extends Fragment {
      */
 
     private void initRecyclerView() {
+        System.out.println("初始化RecyclerView");
         // Get RecyclerView
         mGoalRecyclerView = (RecyclerView) view.findViewById(R.id.goal_recyclerView);
         if ( mGoalRecyclerView != null) {
@@ -89,7 +96,7 @@ public class GoalFragment extends Fragment {
 //        mGoalRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //RecyclerView中没有item的监听事件，需要自己在适配器中写一个监听事件的接口。参数根据自定义
         mGoalRecyclerAdapter.setOnItemClickListener(new GoalRecycleAdapter.OnItemClickListener() {
-            private static final String TAG = "Tesr";
+            private static final String TAG = "Test";
 
             @Override
             public void OnItemClick(View view, GroupEntity data) {
@@ -114,4 +121,35 @@ public class GoalFragment extends Fragment {
 
         });
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isCreated=true;
+    }
+
+    // Refresh fragment when switching
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isCreated) {
+            return; }
+        if (isVisibleToUser) {
+            //当此fragment正当前显示是，执行该操作，
+            //网络请求或者刷新数据
+            Log.e("TAG", "onStart: ++++++++++++++++++" );
+            //ListView适配器刷新，更新答题状态显示
+            if (groupEntityList != null ){
+//                groupEntityList.clear();
+                System.out.println("这里可以执行刷新操作");
+                this.groupEntityList = groupDao.listMyGroups(userId);
+                mGoalRecyclerAdapter.notifyDataSetChanged();
+            }
+            mGoalRecyclerAdapter.notifyDataSetChanged();
+        } else {
+            // 相当于Fragment的onPause
+            // System.out.println("ChatFragment ---setUserVisibleHint---isVisibleToUser - FALSE");
+        }
+    }
+
 }
