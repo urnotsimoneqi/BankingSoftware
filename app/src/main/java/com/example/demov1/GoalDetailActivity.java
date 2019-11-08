@@ -16,6 +16,7 @@ import com.example.demov1.Entity.GroupEntity;
 import com.alibaba.fastjson.JSON;
 import com.example.demov1.Entity.UserEntity;
 import com.example.demov1.dao.GroupDao;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.mob.MobSDK;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
@@ -24,7 +25,8 @@ import java.util.List;
 
 public class GoalDetailActivity extends AppCompatActivity {
     public RecyclerView mUserRecyclerView;
-    private RoundCornerProgressBar progressBar;
+//    private RoundCornerProgressBar progressBar;
+    private DonutProgress progressBar;
     private List<UserEntity> userEntityList = new ArrayList<>();
     private UserRecycleAdapter mUserRecyclerAdapter;
     private GroupDao groupDao;
@@ -40,15 +42,13 @@ public class GoalDetailActivity extends AppCompatActivity {
         MobSDK.init(this);
         String groupJson = getIntent().getStringExtra("Group");
         group = JSON.parseObject(groupJson, GroupEntity.class);
-//        Log.d(TAG, "Group Name->" + group.getGroupName());
-//        Log.d(TAG, "Group Id->" + group.getGroupId());
-//        int groupId = group.getGroupId();
-//        int groupStatus = group.getGroupStatus();
         userEntityList = group.getUsers();
-//        Log.d(TAG, "Group Size->" + userEntityList.size());
         progressBar = findViewById(R.id.detail_progress_bar);
-        progressBar.setMax(group.getTargetAmount());
-        progressBar.setProgress(group.getCurrentAmount());
+        float progressFloat = Math.round((float)(group.getCurrentAmount())/(float)(group.getTargetAmount()) * (float)100);
+        int progressInt = (int)progressFloat;
+        String progressString = String.valueOf(progressInt);
+        progressBar.setDonut_progress(progressString);
+
         // Initialize recyclerView
         initRecyclerView();
         titleBar = findViewById(R.id.title_bar_goal_detail);

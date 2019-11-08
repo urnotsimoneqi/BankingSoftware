@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, LoginActivity.class);
+//        startActivity(intent);
 
         initView();
         groupDao = new GroupDao(this);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout.addTab(mTabLayout.newTab().setText("GOAL"));
         mTabLayout.addTab(mTabLayout.newTab().setText("GROUP"));
-//        mTabLayout.addTab(mTabLayout.newTab().setText("Tab 3"));
+//        mTabLayout.addTab(mTabLayout.newTab().setText("Test Tab"));
 
         //自定义的Adapter继承自FragmentPagerAdapter
         PagerAdapter mAdapter = new MyPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     return tab1;
                 case 1:
                     GroupFragment tab2 = new GroupFragment();
+//                    PageFragment tab2 = PageFragment.newInstance("PageFragment");
                     return tab2;
             }
             return null;

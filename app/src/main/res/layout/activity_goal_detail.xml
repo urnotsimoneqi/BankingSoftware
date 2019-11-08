@@ -2,6 +2,8 @@
 <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        xmlns:progressbar="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White"
@@ -29,18 +31,18 @@
         >
         </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
 
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title_bar_goal_detail"
-                android:id="@+id/detail_background"
-                android:background="@drawable/background1"
-        />
+<!--        <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/title_bar_goal_detail"-->
+<!--                android:id="@+id/detail_background"-->
+<!--                android:background="@drawable/background1"-->
+<!--        />-->
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/detail_background"
+                android:layout_below="@+id/title_bar_goal_detail"
                 android:padding="16dp"
         >
             <TextView
@@ -50,15 +52,25 @@
                     android:text="@string/goal_progress"
                     android:textColor="@color/Black"
                     android:textSize="18sp"/>
-            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+<!--            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar-->
+<!--                    android:id="@+id/detail_progress_bar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_below="@+id/group_progress_label"-->
+<!--                    app:rcRadius="5dp"-->
+<!--                    app:rcProgressColor="@color/DarkGoldenrod1"-->
+<!--                    app:rcBackgroundColor="@color/WhiteSmoke"-->
+<!--                    app:rcBackgroundPadding="1dp"/>-->
+            <com.github.lzyzsd.circleprogress.DonutProgress
+                    android:layout_centerInParent="true"
                     android:id="@+id/detail_progress_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_below="@+id/group_progress_label"
-                    app:rcRadius="5dp"
-                    app:rcProgressColor="@color/DarkGoldenrod1"
-                    app:rcBackgroundColor="@color/WhiteSmoke"
-                    app:rcBackgroundPadding="1dp"/>
+                    custom:donut_finished_color="@color/DarkGoldenrod1"
+                    custom:donut_text_color="@color/DarkGoldenrod1"
+                    custom:donut_finished_stroke_width="20dp"
+                    custom:donut_unfinished_stroke_width="20dp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,7 +105,7 @@
             android:id="@+id/fab_save_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_black_24dp"
+            android:src="@drawable/coin"
             app:backgroundTint="@color/DarkGoldenrod1"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="24dp"

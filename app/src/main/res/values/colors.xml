@@ -7,6 +7,8 @@
   <color name="Turquoise3">#00C5CD</color>
   <color name="Turquoise4">#00868B</color>
 
+  <color name="DarkGoldenrod1">#FFB90F</color>
+
 <!--  <color name="primary">#E43F3F</color>-->
 <!--  <color name="primary_dark">#E12929</color>-->
 <!--  <color name="primary_darker">#CC1D1D</color>-->
@@ -334,7 +336,7 @@
   <color name="Goldenrod2">#EEB422</color>
   <color name="Goldenrod3">#CD9B1D</color>
   <color name="Goldenrod4">#8B6914</color>
-  <color name="DarkGoldenrod1">#FFB90F</color>
+
   <color name="DarkGoldenrod2">#EEAD0E</color>
   <color name="DarkGoldenrod3">#CD950C</color>
   <color name="DarkGoldenrod4">#8B658B</color>

@@ -55,9 +55,7 @@ public class GroupEntity {
         this.groupName = groupName;
     }
 
-    public Integer getTargetAmount() {
-        return targetAmount;
-    }
+    public Integer getTargetAmount() { return targetAmount; }
 
     public void setTargetAmount(Integer targetAmount) {
         this.targetAmount = targetAmount;
