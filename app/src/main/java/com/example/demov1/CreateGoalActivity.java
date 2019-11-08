@@ -57,15 +57,15 @@ public class CreateGoalActivity extends AppCompatActivity {
         _createGoalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (goalDao.createGoal(userId, _goalNameText.getText().toString(), Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic)) {
-                    groupDao.createGroup(_goalNameText.getText().toString(), Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic);
-                    // create goal success, page jump
-//                    Intent intent = new Intent(CreateGoalActivity.this, GoalFragment.class);
-//                    startActivity(intent);
-                    CreateGoalActivity.this.finish();
-//                    Intent intent = new Intent(CreateGoalActivity.this, GoalFragment.class);
-//                    intent.putExtra("id",1);
-//                    startActivity(intent);
+                if (goalDao.createGoal(userId, _goalNameText.getText().toString(),
+                        Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic)) {
+                    int groupId = groupDao.createGroup(_goalNameText.getText().toString(),
+                            Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic);
+                    System.out.println("Create goal and Group");
+                    groupDao.joinGroup(userId, groupId);
+//                    CreateGoalActivity.this.finish();
+                    Intent intent = new Intent(CreateGoalActivity.this, MainActivity.class);
+                    startActivity(intent);
                 } else {
                     // fail to add group, show prompt
                     Toast.makeText(CreateGoalActivity.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -83,6 +83,4 @@ public class CreateGoalActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

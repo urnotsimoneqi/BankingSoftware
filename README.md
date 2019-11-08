@@ -1,7 +1,7 @@
 # BankingSoftware
 The final project for IS5009. A mobile application which is intended to motivate the customers to save money in order to reach their goals.
 
-username: user1@demo.com 
+username: user1@demo.com ~ user6@demo.com
 
 password: 123456
 
@@ -13,6 +13,7 @@ password: 123456
 - Implement UI of creating Goal
 - Implement UI of saving money
 - Implement sharing to social platform
+- Hide the create button when user already has a group goal in progress
 
 ### To Do
 - Inviting friends

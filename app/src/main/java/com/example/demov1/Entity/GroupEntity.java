@@ -27,11 +27,14 @@ public class GroupEntity {
         this.currentAmount = currentAmount;
     }
 
-    public GroupEntity(Integer groupId, String groupName, Integer targetAmount, Integer currentAmount, List<UserEntity> users) {
+    public GroupEntity(Integer groupId, String groupName, Integer targetAmount, Integer currentAmount,
+                       Integer groupStatus, Integer groupIfPublic,List<UserEntity> users) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.targetAmount = targetAmount;
         this.currentAmount = currentAmount;
+        this.groupStatus = groupStatus;
+        this.groupIfPublic = groupIfPublic;
         this.users = users;
     }
 

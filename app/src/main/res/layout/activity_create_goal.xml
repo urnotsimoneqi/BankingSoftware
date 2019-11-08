@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:float="http://schemas.android.com/apk/res-auto"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="@color/Turquoise3"
+>
 
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -22,6 +23,7 @@
                 titlebar:centerText="@string/new_goal"
                 titlebar:centerTextSize="18sp"
                 titlebar:centerTextColor="@color/white"
+                titlebar:bottomLineColor="@color/white"
         >
         </com.wuhenzhizao.titlebar.widget.CommonTitleBar>
 
@@ -36,16 +38,17 @@
 
             <!--  Goal Name Label -->
             <android.support.design.widget.TextInputLayout
+                    android:hint="@string/new_goal_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                 <EditText android:id="@+id/goal_name"
-                          android:textColor="@color/black"
-                          android:textColorHint="@color/iron"
+                          android:textColor="@color/white"
+                          android:textColorHint="@color/white"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:hint="@string/new_goal_name"/>
+                          />
             </android.support.design.widget.TextInputLayout>
 
             <!--  Goal Target Label -->
@@ -55,11 +58,12 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                 <EditText android:id="@+id/goal_target"
-                          android:textColor="@color/black"
+                          android:textColor="@color/white"
+                          android:textColorHint="@color/white"
+                          android:inputType="number"
                           android:layout_below="@+id/goal_name"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:textColorHint="@color/iron"
                           android:hint="@string/new_goal_target"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -69,6 +73,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/private_goal"
+                    android:textColor="@color/white"
+                    app:buttonTint="@color/white" />
                 />
 
             <android.support.v7.widget.AppCompatButton

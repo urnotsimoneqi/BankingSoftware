@@ -24,8 +24,8 @@ public class GoalDao {
         // Judge if the database is available
         if (db.isOpen()) {
             // execute insert operation
-//            db.execSQL("insert into goal (user_id, goal_name, goal_target, goal_current, goal_status, " +
-//                    "goal_if_public) values(?,?,?,?,?,?)", new Object[]{userId, goalName, goalTarget, 0, 1, goalIfPublic});
+            db.execSQL("insert into goal (user_id, goal_name, goal_target, goal_current, goal_status, " +
+                    "goal_if_public) values(?,?,?,?,?,?)", new Object[]{userId, goalName, goalTarget, 0, 1, goalIfPublic});
             System.out.println("Create a new goal");
             db.close();
             return true;

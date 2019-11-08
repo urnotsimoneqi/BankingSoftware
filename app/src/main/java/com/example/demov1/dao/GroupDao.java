@@ -25,20 +25,36 @@ public class GroupDao {
     private ArrayList<GroupEntity> groupList;
     private List<UserEntity> userList;
 
-    // Create Group Function
-    public boolean createGroup(String groupName, int groupTarget, int groupIfPublic) {
+    // Create Group Function, return group id
+    public int createGroup(String groupName, int groupTarget, int groupIfPublic) {
         db = sqLiteHelper.getWritableDatabase();
+        int groupId = 0;
         // Judge if the database is available
         if (db.isOpen()) {
             // execute insert operation
-//            db.execSQL("insert into saving_group (group_name, target_amount, current_amount, group_status, " +
-//                    "group_if_public) values(?,?,?,?,?)", new Object[]{groupName, groupTarget, 0, 1, groupIfPublic});
+            db.execSQL("insert into saving_group (group_name, target_amount, current_amount, group_status, " +
+                    "group_if_public) values(?,?,?,?,?)", new Object[]{groupName, groupTarget, 0, 1, groupIfPublic});
             System.out.println("Create a new group");
+            groupId = selectLastInsertGroup();
             db.close();
-            return true;
+            return groupId;
         } else {
-            return false;
+            return groupId;
         }
+    }
+
+    // select last_insert_rowid() from table_name
+    public int selectLastInsertGroup() {
+        db = sqLiteHelper.getReadableDatabase();
+        String sql = "select last_insert_rowid() from " + "saving_group";
+        Cursor cursor = db.rawQuery(sql, null);
+        int a = -1;
+        if(cursor.moveToFirst()){
+            a = cursor.getInt(0);
+        }
+        db.close();
+        System.out.println("The last insert group id is:"+a);
+        return a;
     }
 
     // List my groups
@@ -47,14 +63,21 @@ public class GroupDao {
         List<Integer> groupIds = findMyGroupIds(userId);
         groupList = new ArrayList<>();
         for (int i = 0; i < groupIds.size(); i++) {
-            Cursor cursor = db.rawQuery("select * from saving_group where group_id = " + groupIds.get(i), null);
+            Cursor cursor = db.rawQuery("select * from saving_group where group_id = "
+                    + groupIds.get(i), null);
             while (cursor.moveToNext()) {
                 int groupId = groupIds.get(i);
                 String groupName = cursor.getString(cursor.getColumnIndex("group_name"));
                 int targetAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("target_amount")));
                 int currentAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("current_amount")));
+                int groupStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_status")));
+                int groupIfPublic = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_if_public")));
                 userList = listUserInGroup(groupId);
-                GroupEntity groupEntity = new GroupEntity(groupId, groupName, targetAmount, currentAmount, userList);
+                GroupEntity groupEntity = new GroupEntity(groupId, groupName, targetAmount, currentAmount,
+                        groupStatus, groupIfPublic, userList);
+                System.out.println("DAO Group Id"+groupEntity.getGroupId());
+                System.out.println("DAO Group Name"+groupEntity.getGroupName());
+                System.out.println("DAO Group Status"+groupEntity.getGroupStatus());
                 groupList.add(groupEntity);
             }
             cursor.close();
@@ -92,8 +115,11 @@ public class GroupDao {
             String groupName = cursor.getString(cursor.getColumnIndex("group_name"));
             int targetAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("target_amount")));
             int currentAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("current_amount")));
+            int groupStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_status")));
+            int groupIfPublic = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_if_public")));
             userList = listUserInGroup(groupId);
-            GroupEntity groupEntity = new GroupEntity(groupId, groupName, targetAmount, currentAmount, userList);
+            GroupEntity groupEntity = new GroupEntity(groupId, groupName, targetAmount, currentAmount,
+                    groupStatus, groupIfPublic, userList);
             groupList.add(groupEntity);
         }
         cursor.close();
@@ -148,6 +174,7 @@ public class GroupDao {
             return false;
         }
     }
+
 }
 
 
