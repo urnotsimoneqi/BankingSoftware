@@ -14,6 +14,7 @@ password: 123456
 - Implement UI of saving money
 - Implement sharing to social platform
 - Hide the create button when user already has a group goal in progress
+- Add animation when put money to the goal 
 
 ### To Do
 - Inviting friends
@@ -29,9 +30,10 @@ password: 123456
 - Revise some code logic of joining group
 ## Bug to Fix
 
-
+ 
 ## Bug Fixed
 - Need to tap the last tab first otherwise the view of first tab not show
 - Goal Tab: The view of Goal fragment does not refresh but the data updated(join a group)
 - Fragment load before loginActivity so the userInfo may be null
 - Problem of displaying the progress (float, int, String)
+- groupId in table "goal" and "user_group" is null when create goal and group

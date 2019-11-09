@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.*;
 import butterknife.BindView;
+import com.example.demov1.Entity.GroupEntity;
 import com.example.demov1.dao.GoalDao;
 import com.example.demov1.dao.GroupDao;
 import com.example.demov1.dao.UserDao;
@@ -57,13 +58,12 @@ public class CreateGoalActivity extends AppCompatActivity {
         _createGoalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (goalDao.createGoal(userId, _goalNameText.getText().toString(),
-                        Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic)) {
-                    int groupId = groupDao.createGroup(_goalNameText.getText().toString(),
-                            Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic);
+                GroupEntity group = groupDao.createGroup(_goalNameText.getText().toString(),
+                        Integer.parseInt(_goalTargetText.getText().toString()), goalIfPublic); // create group
+                if(goalDao.createGoal(userId, group.getGroupId(), group.getGroupName(),
+                        group.getTargetAmount(), group.getGroupIfPublic())) {
                     System.out.println("Create goal and Group");
-                    groupDao.joinGroup(userId, groupId);
-//                    CreateGoalActivity.this.finish();
+                    groupDao.joinGroup(userId, group.getGroupId());
                     Intent intent = new Intent(CreateGoalActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {

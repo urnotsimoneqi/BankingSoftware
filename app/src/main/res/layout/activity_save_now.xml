@@ -66,10 +66,17 @@
         />
     </RelativeLayout>
     <Button
+            android:id="@+id/save_money_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:textColor="@color/black"
             android:background="@color/DarkGoldenrod1"
             android:text="SAVE"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 </RelativeLayout>

@@ -25,10 +25,11 @@ public class GroupDao {
     private ArrayList<GroupEntity> groupList;
     private List<UserEntity> userList;
 
-    // Create Group Function, return group id
-    public int createGroup(String groupName, int groupTarget, int groupIfPublic) {
+    // Create Group Function, return group entity
+    public GroupEntity createGroup(String groupName, int groupTarget, int groupIfPublic) {
         db = sqLiteHelper.getWritableDatabase();
         int groupId = 0;
+        GroupEntity group = new GroupEntity();
         // Judge if the database is available
         if (db.isOpen()) {
             // execute insert operation
@@ -36,10 +37,16 @@ public class GroupDao {
                     "group_if_public) values(?,?,?,?,?)", new Object[]{groupName, groupTarget, 0, 1, groupIfPublic});
             System.out.println("Create a new group");
             groupId = selectLastInsertGroup();
+            group.setGroupId(groupId);
+            group.setGroupName(groupName);
+            group.setTargetAmount(groupTarget);
+            group.setCurrentAmount(0);
+            group.setGroupStatus(1);
+            group.setGroupIfPublic(groupIfPublic);
             db.close();
-            return groupId;
+            return group;
         } else {
-            return groupId;
+            return group;
         }
     }
 
@@ -88,7 +95,7 @@ public class GroupDao {
     }
 
 
-    //     Find list of my group ids
+    // Find list of my group ids
     public List<Integer> findMyGroupIds(int userId) {
         db = sqLiteHelper.getReadableDatabase();
         List<Integer> groupIds = new ArrayList();
@@ -174,6 +181,9 @@ public class GroupDao {
             return false;
         }
     }
+
+    // Bind group with goals
+
 
 }
 

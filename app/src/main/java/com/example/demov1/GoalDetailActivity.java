@@ -69,6 +69,9 @@ public class GoalDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(GoalDetailActivity.this, SaveMoneyActivity.class);
+                String jsonString = JSON.toJSONString(group);
+                Log.e(TAG, "simpleEncode: " + jsonString);
+                intent.putExtra("Group", jsonString);
                 startActivity(intent);
             }
 

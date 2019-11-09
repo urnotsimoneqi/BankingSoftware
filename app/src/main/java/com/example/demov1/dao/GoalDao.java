@@ -19,13 +19,13 @@ public class GoalDao {
     }
 
     // Create New Goal Function
-    public boolean createGoal(int userId, String goalName, int goalTarget, int goalIfPublic) {
+    public boolean createGoal(int userId, int groupId, String goalName, int goalTarget, int goalIfPublic) {
         db = sqLiteHelper.getWritableDatabase();
         // Judge if the database is available
         if (db.isOpen()) {
             // execute insert operation
-            db.execSQL("insert into goal (user_id, goal_name, goal_target, goal_current, goal_status, " +
-                    "goal_if_public) values(?,?,?,?,?,?)", new Object[]{userId, goalName, goalTarget, 0, 1, goalIfPublic});
+            db.execSQL("insert into goal (user_id, group_id, goal_name, goal_target, goal_current, goal_status, " +
+                    "goal_if_public) values(?,?,?,?,?,?,?)", new Object[]{userId, groupId, goalName, goalTarget, 0, 1, goalIfPublic});
             System.out.println("Create a new goal");
             db.close();
             return true;
@@ -41,7 +41,7 @@ public class GoalDao {
         Cursor cursor = db.rawQuery("select * from goal where user_id = "+userId, null);
         while (cursor.moveToNext()) {
             int goalId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_id")));
-            int groupId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_id")));
+            Integer groupId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_id")));
             String goalName = cursor.getString(cursor.getColumnIndex("goal_name"));
             int goalTarget = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_target")));
             int goalCurrent = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_current")));
@@ -62,5 +62,24 @@ public class GoalDao {
         db.close();
         return goalList;
     }
+
+    // Add money to the goal
+    public boolean depositMoney(int userId, int groupId, int addMoney, int currentMoney){
+        db = sqLiteHelper.getWritableDatabase();
+        int money = addMoney+currentMoney;
+        if (db.isOpen()) {
+            db.execSQL("update goal set goal_current=? where user_id=? and group_id=?", new Object[]
+                    {money, userId, groupId});
+            System.out.println("Add money");
+            db.close();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+//    // Get current amount of the goal
+//    public int depositMoney(int userId, int groupId, int money){
+
 
 }
