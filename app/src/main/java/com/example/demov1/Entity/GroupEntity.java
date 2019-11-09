@@ -10,6 +10,7 @@ public class GroupEntity {
     private Integer groupStatus;
     private Integer groupIfPublic;
     private List<UserEntity> users;
+    private List<GoalEntity> goals;
 
     public List<UserEntity> getUsers() {
         return users;
@@ -28,7 +29,7 @@ public class GroupEntity {
     }
 
     public GroupEntity(Integer groupId, String groupName, Integer targetAmount, Integer currentAmount,
-                       Integer groupStatus, Integer groupIfPublic,List<UserEntity> users) {
+                       Integer groupStatus, Integer groupIfPublic, List<UserEntity> users, List<GoalEntity> goals) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.targetAmount = targetAmount;
@@ -36,6 +37,7 @@ public class GroupEntity {
         this.groupStatus = groupStatus;
         this.groupIfPublic = groupIfPublic;
         this.users = users;
+        this.goals = goals;
     }
 
     // fastJson needs to call the default non-parameter constructor of the object when deserializing
@@ -78,6 +80,14 @@ public class GroupEntity {
 
     public void setGroupIfPublic(Integer groupIfPublic) {
         this.groupIfPublic = groupIfPublic;
+    }
+
+    public List<GoalEntity> getGoals() {
+        return goals;
+    }
+
+    public void setGoals(List<GoalEntity> goals) {
+        this.goals = goals;
     }
 
     @Override

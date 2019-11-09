@@ -46,8 +46,13 @@ public class GoalDetailActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.detail_progress_bar);
         float progressFloat = Math.round((float)(group.getCurrentAmount())/(float)(group.getTargetAmount()) * (float)100);
         int progressInt = (int)progressFloat;
+        System.out.println("GoalDetailOnCreateFloat"+progressFloat);
         String progressString = String.valueOf(progressInt);
+        System.out.println("GoalDetailOnCreateString"+progressString);
         progressBar.setDonut_progress(progressString);
+
+//        progressBar.setMax(group.getTargetAmount());
+//        progressBar.setProgress((float)group.getCurrentAmount());
 
         // Initialize recyclerView
         initRecyclerView();

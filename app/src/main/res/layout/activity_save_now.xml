@@ -8,7 +8,7 @@
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
             xmlns:titlebar="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/title_bar_goal_detail"
+            android:id="@+id/title_bar_save_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             titlebar:titleBarColor="@color/Turquoise3"
@@ -26,7 +26,7 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title_bar_goal_detail"
+            android:layout_below="@+id/title_bar_save_money"
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
         <TextView

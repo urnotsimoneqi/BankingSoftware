@@ -3,6 +3,9 @@ package com.example.demov1.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import com.alibaba.fastjson.JSON;
+import com.example.demov1.Entity.GoalEntity;
 import com.example.demov1.Entity.GroupEntity;
 import com.example.demov1.Entity.UserEntity;
 import com.example.demov1.sqlite.SQLiteHelper;
@@ -24,6 +27,7 @@ public class GroupDao {
 
     private ArrayList<GroupEntity> groupList;
     private List<UserEntity> userList;
+    private List<GoalEntity> goalList;
 
     // Create Group Function, return group entity
     public GroupEntity createGroup(String groupName, int groupTarget, int groupIfPublic) {
@@ -50,17 +54,36 @@ public class GroupDao {
         }
     }
 
+    // Find certain group function, return group entity
+    public GroupEntity selectGroup(int groupId) {
+        db = sqLiteHelper.getReadableDatabase();
+        GroupEntity group = new GroupEntity();
+        Cursor cursor = db.rawQuery("select * from saving_group where group_id = " + groupId, null);
+        while (cursor.moveToNext()) {
+            String groupName = cursor.getString(cursor.getColumnIndex("group_name"));
+            int targetAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("target_amount")));
+            int currentAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("current_amount")));
+            int groupStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_status")));
+            int groupIfPublic = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_if_public")));
+            group = new GroupEntity(groupId, groupName, targetAmount, currentAmount,
+                    groupStatus, groupIfPublic, userList, goalList);
+        }
+        db.close();
+        return group;
+    }
+
+
     // select last_insert_rowid() from table_name
     public int selectLastInsertGroup() {
         db = sqLiteHelper.getReadableDatabase();
         String sql = "select last_insert_rowid() from " + "saving_group";
         Cursor cursor = db.rawQuery(sql, null);
         int a = -1;
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             a = cursor.getInt(0);
         }
         db.close();
-        System.out.println("The last insert group id is:"+a);
+        System.out.println("The last insert group id is:" + a);
         return a;
     }
 
@@ -80,11 +103,10 @@ public class GroupDao {
                 int groupStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_status")));
                 int groupIfPublic = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_if_public")));
                 userList = listUserInGroup(groupId);
+                goalList = listGoalInGroup(groupId);
                 GroupEntity groupEntity = new GroupEntity(groupId, groupName, targetAmount, currentAmount,
-                        groupStatus, groupIfPublic, userList);
-                System.out.println("DAO Group Id"+groupEntity.getGroupId());
-                System.out.println("DAO Group Name"+groupEntity.getGroupName());
-                System.out.println("DAO Group Status"+groupEntity.getGroupStatus());
+                        groupStatus, groupIfPublic, userList, goalList);
+                updateGroupGoal(groupId);
                 groupList.add(groupEntity);
             }
             cursor.close();
@@ -110,12 +132,12 @@ public class GroupDao {
         return groupIds;
     }
 
-    // List All Group Function
+    // List public group which is uncompleted and does not include the current user,
     public ArrayList<GroupEntity> listGroup() {
         db = sqLiteHelper.getReadableDatabase();
         groupList = new ArrayList<>();
 //        db.execSQL("select * from group_goal");
-        Cursor cursor = db.rawQuery("select * from saving_group", null);
+        Cursor cursor = db.rawQuery("select * from saving_group where group_status=1 and group_if_public=0", null);
 
         while (cursor.moveToNext()) {
             int groupId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_id")));
@@ -125,14 +147,30 @@ public class GroupDao {
             int groupStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_status")));
             int groupIfPublic = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_if_public")));
             userList = listUserInGroup(groupId);
+            goalList = listGoalInGroup(groupId);
             GroupEntity groupEntity = new GroupEntity(groupId, groupName, targetAmount, currentAmount,
-                    groupStatus, groupIfPublic, userList);
+                    groupStatus, groupIfPublic, userList, goalList);
+            updateGroupGoal(groupId);
             groupList.add(groupEntity);
         }
         cursor.close();
         db.close();
         return groupList;
     }
+
+//    // Get a list of groupId from user_group table
+//    public List<Integer> getGroupIdOfGroup(int userId) {
+//        db = sqLiteHelper.getReadableDatabase();
+//        List<Integer> groupIds = new ArrayList();
+//        Cursor cursor = db.rawQuery("select * from user_group where user_id <> " + userId, null);
+//        while (cursor.moveToNext()) {
+//            int groupId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_id")));
+//            groupIds.add(groupId);
+//        }
+//        cursor.close();
+//        db.close();
+//        return groupIds;
+//    }
 
     // Get a list of userId from user_group table
     public List<Integer> getUserIdOfGroup(int groupId) {
@@ -182,8 +220,75 @@ public class GroupDao {
         }
     }
 
-    // Bind group with goals
+    // Get a list of goals from certain group
+    public List<GoalEntity> listGoalInGroup(int groupId) {
+        db = sqLiteHelper.getReadableDatabase();
+        goalList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select * from goal where group_id = " + groupId, null);
+        while (cursor.moveToNext()) {
+            int goalId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_id")));
+            int userId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("user_id")));
+            String goalName = cursor.getString(cursor.getColumnIndex("goal_name"));
+            int goalTarget = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_target")));
+            int goalCurrent = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_current")));
+            int goalStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_status")));
+            int goalIfPublic = Integer.parseInt(cursor.getString(cursor.getColumnIndex("goal_if_public")));
+            GoalEntity goal = new GoalEntity(goalId, userId, groupId, goalName, goalTarget, goalCurrent, goalStatus, goalIfPublic);
+            goalList.add(goal);
+        }
+        cursor.close();
 
+//        db.close();
+        return goalList;
+    }
+
+    // update Group target and current goal
+    public void updateGroupGoal(int groupId) {
+        goalList = listGoalInGroup(groupId);
+        GroupEntity group = selectGroup(groupId);
+        System.out.println("update Group Goal"+group.getGroupId());
+        int groupTarget = 0;
+        int groupCurrent = 0;
+        for (int i = 0; i < goalList.size(); i++) {
+            GoalEntity goal = goalList.get(i);
+            groupTarget += goal.getGoalTarget();
+            groupCurrent += goal.getGoalCurrent();
+        }
+        group.setTargetAmount(groupTarget);
+        group.setCurrentAmount(groupCurrent);
+        db = sqLiteHelper.getWritableDatabase();
+        if (db.isOpen()) {
+            db.execSQL("update saving_group set target_amount=?, current_amount=? where group_id=?", new Object[]
+                    {group.getTargetAmount(), group.getCurrentAmount(), groupId}); // Note: update multiple data field
+//            System.out.println("User join a group");
+//            db.close();
+        }
+    }
+
+    // list group in group fragment
+    public void listGroupUncompletedAndUnjoined() {
+//        db = sqLiteHelper.getReadableDatabase();
+//        groupList = new ArrayList<>();
+//        Cursor cursor = db.rawQuery("select * from saving_group where group_status=1 and group_if_public=0", null);
+//        while (cursor.moveToNext()) {
+//            int groupId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_id")));
+//            String groupName = cursor.getString(cursor.getColumnIndex("group_name"));
+//            int targetAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("target_amount")));
+//            int currentAmount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("current_amount")));
+//            int groupStatus = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_status")));
+//            int groupIfPublic = Integer.parseInt(cursor.getString(cursor.getColumnIndex("group_if_public")));
+//            userList = listUserInGroup(groupId);
+//            goalList = listGoalInGroup(groupId);
+//            GroupEntity groupEntity = new GroupEntity(groupId, groupName, targetAmount, currentAmount,
+//                    groupStatus, groupIfPublic, userList, goalList);
+//            updateGroupGoal(groupId);
+//            groupList.add(groupEntity);
+//        }
+//        cursor.close();
+//        db.close();
+//        return groupList;
+
+    }
 
 }
 

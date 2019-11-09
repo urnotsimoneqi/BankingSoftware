@@ -25,9 +25,6 @@ import com.example.demov1.Entity.UserEntity;
 import com.example.demov1.base.BasePageFragment;
 import com.example.demov1.dao.GroupDao;
 import com.example.demov1.dao.UserDao;
-
-
-import java.nio.file.attribute.GroupPrincipal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +50,7 @@ public class GoalFragment extends Fragment {
         view = inflater.inflate(R.layout.goal_tab, container, false); // Get the layout of fragment
         isCreated = true; // Flag
         groupDao = new GroupDao(getActivity());
-        System.out.println("Current login user Id" + userId);
+//        System.out.println("Current login user Id" + userId);
         groupEntityList = initData(userId); // Load data
         initRecyclerView();
         return view;
@@ -64,15 +61,15 @@ public class GoalFragment extends Fragment {
      */
     private ArrayList<GroupEntity> initData(int userId) {
         ArrayList<GroupEntity> groupEntityList = groupDao.listMyGroups(userId);
-        System.out.println("Initializing my groups ......");
+//        System.out.println("Initializing my groups ......");
         System.out.println(groupEntityList.size());
         fab = (FloatingActionButton) view.findViewById(R.id.fab_new_group);
         // hide the creating goal button if the user already has a goal in progress
         for(int i=0;i<groupEntityList.size();i++){
             GroupEntity group = groupEntityList.get(i);
-            System.out.println("Group Id"+group.getGroupId());
-            System.out.println("Group Name"+group.getGroupName());
-            System.out.println("Group Status"+group.getGroupStatus());
+//            System.out.println("Group Id"+group.getGroupId());
+//            System.out.println("Group Name"+group.getGroupName());
+//            System.out.println("Group Status"+group.getGroupStatus());
             if (group.getGroupStatus() == 1) {
                 fab.setVisibility(View.INVISIBLE);
             }
@@ -153,7 +150,7 @@ public class GoalFragment extends Fragment {
         if (isVisibleToUser) {
             // Execute when this fragment shows
             // Network request or refresh data
-            Log.e("TAG", "onStart: ++++++++++++++++++");
+            Log.e("GoalFragment", "onStart: ++++++++++++++++++");
             //mGoalRecyclerAdapter refresh，update group list
             if (groupEntityList != null) {
                 groupEntityList.clear();

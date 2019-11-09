@@ -1,5 +1,7 @@
 package com.example.demov1.Entity;
 
+import java.util.List;
+
 public class GoalEntity {
     private Integer goalId;
     private Integer userId;
@@ -72,5 +74,22 @@ public class GoalEntity {
 
     public void setGoalIfPublic(Integer goalIfPublic) {
         this.goalIfPublic = goalIfPublic;
+    }
+
+    public GoalEntity(Integer goalId, Integer userId, Integer groupId, String goalName,
+                      Integer goalTarget, Integer goalCurrent,
+                      Integer goalStatus, Integer goalIfPublic) {
+        this.goalId = goalId;
+        this.userId = userId;
+        this.groupId = groupId;
+        this.goalName = goalName;
+        this.goalTarget = goalTarget;
+        this.goalCurrent = goalCurrent;
+        this.goalStatus = goalStatus;
+        this.goalIfPublic = goalIfPublic;
+    }
+
+    // fastJson needs to call the default non-parameter constructor of the object when deserializing
+    public GoalEntity() {
     }
 }

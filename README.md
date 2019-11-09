@@ -37,3 +37,6 @@ password: 123456
 - Fragment load before loginActivity so the userInfo may be null
 - Problem of displaying the progress (float, int, String)
 - groupId in table "goal" and "user_group" is null when create goal and group
+- Modify the SQL when update multiple field in database
+## Note
+- User can only join other's group when he does not create a group

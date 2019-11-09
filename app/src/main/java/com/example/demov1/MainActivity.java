@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         groupDao = new GroupDao(this);
-        groupEntityList = initData();
+//        groupEntityList = initData();
     }
 
     private void initView() {

@@ -71,23 +71,23 @@
                     custom:donut_text_color="@color/DarkGoldenrod1"
                     custom:donut_finished_stroke_width="20dp"
                     custom:donut_unfinished_stroke_width="20dp"/>
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/detail_progress_bar"-->
+<!--                    android:id="@+id/group_completed_label"-->
+<!--                    android:text="@string/goal_completed"-->
+<!--                    android:textColor="@color/monsoon"/>-->
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_toRightOf="@+id/group_completed_label"-->
+<!--                    android:layout_below="@+id/detail_progress_bar"-->
+<!--                    android:id="@+id/group_completed"/>-->
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/detail_progress_bar"
-                    android:id="@+id/group_completed_label"
-                    android:text="@string/goal_completed"
-                    android:textColor="@color/monsoon"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/group_completed_label"
-                    android:layout_below="@+id/detail_progress_bar"
-                    android:id="@+id/group_completed"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/group_completed"
                     android:id="@+id/group_member_label"
                     android:text="@string/group_member"
                     android:textColor="@color/Black"

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 //import com.arlib.floatingsearchview.FloatingSearchView;
 import com.example.demov1.Entity.GroupEntity;
+import com.example.demov1.Entity.UserEntity;
 import com.example.demov1.dao.GroupDao;
 import com.example.demov1.dao.UserDao;
 
@@ -32,22 +33,25 @@ public class GroupFragment extends Fragment {
 
     private GroupDao groupDao;
     private UserDao userDao;
-    private int userId = 1;
+    private int userId;
+    private String username;
 
     private static final String MyPREFERENCES = "user_details";
-//    private SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
+    private boolean isCreated = false;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.group_tab, container, false);
+        isCreated = true; // Flag
         groupDao = new GroupDao(getActivity());
         groupEntityList = initData();  // Load data
 
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Activity.MODE_PRIVATE);
+        sharedPreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Activity.MODE_PRIVATE);
         String username = sharedPreferences.getString("email", "");
         userDao = new UserDao(getActivity());
-//        userId = userDao.findUserId(username);
+        userId = userDao.findUserId(username);
 
         initRecyclerView(); // Initialize recycleview
 
@@ -70,7 +74,7 @@ public class GroupFragment extends Fragment {
     }
 
     /**
-     * item＋item里的控件点击监听事件
+     * item+item: controller click listener event
      */
     private GroupRecycleAdapter.OnItemClickListener GroupItemClickListener = new GroupRecycleAdapter.OnItemClickListener() {
 
@@ -79,10 +83,23 @@ public class GroupFragment extends Fragment {
             //viewName可区分item及item内部控件
             switch (v.getId()) {
                 case R.id.join_group_btn:
-                    Toast.makeText(getActivity(), "You click the join button" + (position + 1), Toast.LENGTH_SHORT).show();
-                    groupDao.joinGroup(userId, groupEntity.getGroupId());
-//                    mGroupRecyclerAdapter.notifyDataSetChanged();
-//                    mGroupRecyclerAdapter.notifyItemInserted(position + 1);
+//                    Toast.makeText(getActivity(), "You click the join button" + (position + 1), Toast.LENGTH_SHORT).show();
+                    boolean userInGroup = false; // set flag
+                    for (int i = 0; i <groupEntity.getUsers().size(); i++) {
+                        UserEntity user = groupEntity.getUsers().get(i);
+                        if (user.getUserId() == userId) { // if the user already joined the group
+                            userInGroup = true;
+                            Toast.makeText(getActivity(), "You already in the group", Toast.LENGTH_SHORT).show();
+                            break;
+                        } else {
+                            userInGroup = false;
+                        }
+                    }
+                    if (userInGroup == false) {
+                        groupDao.joinGroup(userId, groupEntity.getGroupId());
+                        Toast.makeText(getActivity(), "Join successfully", Toast.LENGTH_SHORT).show();
+                        setUserVisibleHint(true);
+                    }
                     break;
                 default:
                     Toast.makeText(getActivity(), "You click the item" + (position + 1), Toast.LENGTH_SHORT).show();
@@ -95,6 +112,44 @@ public class GroupFragment extends Fragment {
 
         }
     };
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isCreated = true;
+        sharedPreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Activity.MODE_PRIVATE);
+        userDao = new UserDao(getActivity());
+        username = sharedPreferences.getString("email", "");
+        userId = userDao.findUserId(username);
+    }
+
+    // Refresh fragment when switching
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isCreated) {
+            return;
+        }
+        if (isVisibleToUser) {
+            // Execute when this fragment shows
+            // Network request or refresh data
+            Log.e("GroupFragment", "onStart: ++++++++++++++++++");
+            //mGoalRecyclerAdapter refresh，update group list
+            if (groupEntityList != null) {
+                groupEntityList.clear();
+                ArrayList<GroupEntity> data = groupDao.listGroup();
+                groupEntityList.addAll(data);
+
+                userDao = new UserDao(getActivity());
+                userId = userDao.findUserId(username);
+                mGroupRecyclerAdapter.notifyDataSetChanged();
+            }
+            mGroupRecyclerAdapter.notifyDataSetChanged();
+        } else {
+            // similar as onPause of Fragment
+            // System.out.println("ChatFragment ---setUserVisibleHint---isVisibleToUser - FALSE");
+        }
+    }
 
 }
 
