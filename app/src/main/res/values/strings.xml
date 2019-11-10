@@ -18,4 +18,10 @@
     <string-array name="currency">
         <item>SGD</item>
     </string-array>
+    <string name="operation"><b>Congratulations</b></string>
+    <string name="content_text">You have achieved the goal and all the group members will be rewarded!</string>
+    <string name="ok">OK</string>
+    <string name="quit">QUIT</string>
+    <string name="cancel">CANCEL</string>
+    <string name="log_out_text">Sure to exit?</string>
 </resources>

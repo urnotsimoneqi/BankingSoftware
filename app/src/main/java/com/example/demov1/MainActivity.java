@@ -10,11 +10,11 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.avast.android.dialogs.fragment.SimpleDialogFragment;
-import com.avast.android.dialogs.iface.IPositiveButtonDialogListener;
-import com.avast.android.dialogs.iface.ISimpleDialogListener;
+import cn.refactor.lib.colordialog.ColorDialog;
+import cn.refactor.lib.colordialog.PromptDialog;
 import com.example.demov1.entity.GroupEntity;
 import com.example.demov1.util.ActivityCollectorUtil;
 import com.example.demov1.base.BaseActivity;
@@ -88,15 +88,31 @@ public class MainActivity extends BaseActivity {
         CommonTitleBar mTitleBar = findViewById(R.id.titlebar);
         mTitleBar.setListener((v, action, extra) -> {
             if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
-                Intent intent_login = new Intent();
-                intent_login.setClass(MainActivity.this, LoginActivity.class);
-                intent_login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 关键的一句，将新的activity置为栈顶
-                startActivity(intent_login);
-                System.out.println("Log out");
-                ActivityCollectorUtil.finishAllActivity();
-
+                new ColorDialog(this)
+                        .setAnimationEnable(true)
+                        .setContentText(getString(R.string.log_out_text))
+                        .setPositiveListener(getString(R.string.quit), new ColorDialog.OnPositiveListener() {
+                            @Override
+                            public void onClick(ColorDialog dialog) {
+                                Intent intent_login = new Intent();
+                                intent_login.setClass(MainActivity.this, LoginActivity.class);
+                                intent_login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 关键的一句，将新的activity置为栈顶
+                                startActivity(intent_login);
+                                System.out.println("Log out");
+                                ActivityCollectorUtil.finishAllActivity();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
+                            @Override
+                            public void onClick(ColorDialog dialog) {
+                                dialog.dismiss();
+                            }
+                        }).show();
             }
         });
+
+
     }
 
     private ArrayList<GroupEntity> initData() {

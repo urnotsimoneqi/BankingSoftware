@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import cn.refactor.lib.colordialog.PromptDialog;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import com.example.demov1.base.BaseActivity;
 import com.example.demov1.entity.GroupEntity;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class GoalDetailActivity extends AppCompatActivity {
     public RecyclerView mUserRecyclerView;
-//    private RoundCornerProgressBar progressBar;
+    //    private RoundCornerProgressBar progressBar;
     private DonutProgress progressBar;
     private List<UserEntity> userEntityList = new ArrayList<>();
     private UserRecycleAdapter mUserRecyclerAdapter;
@@ -42,15 +43,27 @@ public class GoalDetailActivity extends AppCompatActivity {
         group = JSON.parseObject(groupJson, GroupEntity.class);
         userEntityList = group.getUsers();
         progressBar = findViewById(R.id.detail_progress_bar);
-        float progressFloat = Math.round((float)(group.getCurrentAmount())/(float)(group.getTargetAmount()) * (float)100);
-        int progressInt = (int)progressFloat;
-        System.out.println("GoalDetailOnCreateFloat"+progressFloat);
+        float progressFloat = Math.round((float) (group.getCurrentAmount()) / (float) (group.getTargetAmount()) * (float) 100);
+        int progressInt = (int) progressFloat;
+        System.out.println("GoalDetailOnCreateFloat" + progressFloat);
         String progressString = String.valueOf(progressInt);
-        System.out.println("GoalDetailOnCreateString"+progressString);
+        System.out.println("GoalDetailOnCreateString" + progressString);
         progressBar.setDonut_progress(progressString);
 
-//        progressBar.setMax(group.getTargetAmount());
-//        progressBar.setProgress((float)group.getCurrentAmount());
+        // if the group hit the target, prompt the success dialog
+        if (group.getTargetAmount().equals(group.getCurrentAmount())) {
+            new PromptDialog(this)
+                    .setDialogType(PromptDialog.DIALOG_TYPE_SUCCESS)
+                    .setAnimationEnable(true)
+                    .setTitleText(getString(R.string.operation))
+                    .setContentText(getString(R.string.content_text))
+                    .setPositiveListener(getString(R.string.ok), new PromptDialog.OnPositiveListener() {
+                        @Override
+                        public void onClick(PromptDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        }
 
         // Initialize recyclerView
         initRecyclerView();
@@ -68,7 +81,7 @@ public class GoalDetailActivity extends AppCompatActivity {
         });
 
         fab = findViewById(R.id.fab_save_money);
-        fab.setOnClickListener(new View.OnClickListener(){
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(GoalDetailActivity.this, SaveMoneyActivity.class);
@@ -95,7 +108,7 @@ public class GoalDetailActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         // Get RecyclerView
-        mUserRecyclerView = (RecyclerView)findViewById(R.id.member_recyclerView);
+        mUserRecyclerView = (RecyclerView) findViewById(R.id.member_recyclerView);
 //        if (mUserRecyclerView == null) {
 //            System.out.println("User RecycleView is null!");
 //        }
@@ -122,6 +135,7 @@ public class GoalDetailActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权

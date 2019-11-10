@@ -15,6 +15,8 @@ password: 123456
 - Implement sharing to social platform
 - Hide the create button when user already has a group goal in progress
 - Add animation when put money to the goal 
+- Log in/Log out
+- Show prompt dialog when achieved the goal
 
 ### To Do
 - Inviting friends

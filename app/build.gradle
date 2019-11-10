@@ -87,7 +87,7 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:2.7.0'
 
-    implementation 'com.avast:android-styled-dialogs:2.3.3'
+    implementation 'com.github.andyxialm:ColorDialog:1.0.0'
 
 
 }
