@@ -1,4 +1,4 @@
-package com.example.demov1;
+package com.example.demov1.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,14 +7,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.*;
-import com.example.demov1.base.BaseActivity;
-import com.example.demov1.entity.GroupEntity;
+import com.example.demov1.R;
 import com.example.demov1.dao.GoalDao;
 import com.example.demov1.dao.GroupDao;
 import com.example.demov1.dao.UserDao;
+import com.example.demov1.entity.GroupEntity;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
-public class CreateGoalActivity extends BaseActivity {
+public class CreateGoalActivity extends AppCompatActivity {
     public static final String MyPREFERENCES = "user_details";
     SharedPreferences preferences;
     private UserDao userDao;

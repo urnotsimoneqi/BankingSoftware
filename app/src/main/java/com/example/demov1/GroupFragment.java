@@ -1,11 +1,9 @@
 package com.example.demov1;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
-import com.alibaba.fastjson.JSON;
 //import com.arlib.floatingsearchview.FloatingSearchView;
-import com.example.demov1.Entity.GroupEntity;
-import com.example.demov1.Entity.UserEntity;
+import com.example.demov1.entity.GroupEntity;
+import com.example.demov1.entity.UserEntity;
+import com.example.demov1.dao.GoalDao;
 import com.example.demov1.dao.GroupDao;
 import com.example.demov1.dao.UserDao;
 
@@ -33,6 +30,7 @@ public class GroupFragment extends Fragment {
 
     private GroupDao groupDao;
     private UserDao userDao;
+    private GoalDao goalDao;
     private int userId;
     private String username;
 
@@ -52,6 +50,7 @@ public class GroupFragment extends Fragment {
         String username = sharedPreferences.getString("email", "");
         userDao = new UserDao(getActivity());
         userId = userDao.findUserId(username);
+        goalDao = new GoalDao(getActivity());
 
         initRecyclerView(); // Initialize recycleview
 
@@ -83,7 +82,20 @@ public class GroupFragment extends Fragment {
             //viewName可区分item及item内部控件
             switch (v.getId()) {
                 case R.id.join_group_btn:
-//                    Toast.makeText(getActivity(), "You click the join button" + (position + 1), Toast.LENGTH_SHORT).show();
+                    // Need to update: when the user already has a group
+                    boolean userHasGroupInProgress = false;
+                    ArrayList<GroupEntity> myGroups = groupDao.listMyGroups(userId);
+                    for (int i = 0; i <myGroups.size(); i++) {
+                        GroupEntity group = myGroups.get(i);
+                        if (group.getGroupStatus() == 1){
+                            userHasGroupInProgress = true;
+                            Toast.makeText(getActivity(), "You already has a group in progress", Toast.LENGTH_SHORT).show();
+                            break;
+                        } else {
+                            userHasGroupInProgress = false;
+                        }
+                    }
+
                     boolean userInGroup = false; // set flag
                     for (int i = 0; i <groupEntity.getUsers().size(); i++) {
                         UserEntity user = groupEntity.getUsers().get(i);
@@ -95,14 +107,16 @@ public class GroupFragment extends Fragment {
                             userInGroup = false;
                         }
                     }
-                    if (userInGroup == false) {
+                    if (userInGroup == false && userHasGroupInProgress == false) {
+                        goalDao.createGoal(userId, groupEntity.getGroupId(), groupEntity.getGroupName(),
+                                5000, groupEntity.getGroupIfPublic());
                         groupDao.joinGroup(userId, groupEntity.getGroupId());
                         Toast.makeText(getActivity(), "Join successfully", Toast.LENGTH_SHORT).show();
                         setUserVisibleHint(true);
                     }
                     break;
                 default:
-                    Toast.makeText(getActivity(), "You click the item" + (position + 1), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "You click the item" + (position + 1), Toast.LENGTH_SHORT).show();
                     break;
             }
         }

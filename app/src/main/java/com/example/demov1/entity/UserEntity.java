@@ -1,4 +1,4 @@
-package com.example.demov1.Entity;
+package com.example.demov1.entity;
 
 public class UserEntity {
     private Integer userId;

@@ -1,6 +1,5 @@
-package com.example.demov1;
+package com.example.demov1.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,17 +7,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.avast.android.dialogs.fragment.SimpleDialogFragment;
-import com.avast.android.dialogs.iface.IPositiveButtonDialogListener;
-import com.avast.android.dialogs.iface.ISimpleDialogListener;
-import com.example.demov1.entity.GroupEntity;
-import com.example.demov1.util.ActivityCollectorUtil;
+import com.example.demov1.GoalFragment;
+import com.example.demov1.GroupFragment;
+import com.example.demov1.R;
 import com.example.demov1.base.BaseActivity;
 import com.example.demov1.dao.GroupDao;
+import com.example.demov1.entity.GroupEntity;
+import com.example.demov1.util.ActivityCollectorUtil;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
@@ -30,8 +27,8 @@ public class MainActivity extends BaseActivity {
     ViewPager mViewPager;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-//    @BindView(R.id.titlebar)
-//    CommonTitleBar mTitleBar;
+    @BindView(R.id.titlebar)
+    CommonTitleBar mTitleBar;
 
     private GroupDao groupDao;
     private ArrayList<GroupEntity> groupEntityList = new ArrayList<GroupEntity>();
@@ -84,17 +81,9 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        // log out
-        CommonTitleBar mTitleBar = findViewById(R.id.titlebar);
         mTitleBar.setListener((v, action, extra) -> {
             if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
-                Intent intent_login = new Intent();
-                intent_login.setClass(MainActivity.this, LoginActivity.class);
-                intent_login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 关键的一句，将新的activity置为栈顶
-                startActivity(intent_login);
-                System.out.println("Log out");
                 ActivityCollectorUtil.finishAllActivity();
-
             }
         });
     }

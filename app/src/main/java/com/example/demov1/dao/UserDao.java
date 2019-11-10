@@ -3,7 +3,7 @@ package com.example.demov1.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.example.demov1.Entity.UserEntity;
+import com.example.demov1.entity.UserEntity;
 import com.example.demov1.sqlite.SQLiteHelper;
 
 public class UserDao {

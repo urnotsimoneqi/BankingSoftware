@@ -3,11 +3,9 @@ package com.example.demov1.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-import com.alibaba.fastjson.JSON;
-import com.example.demov1.Entity.GoalEntity;
-import com.example.demov1.Entity.GroupEntity;
-import com.example.demov1.Entity.UserEntity;
+import com.example.demov1.entity.GoalEntity;
+import com.example.demov1.entity.GroupEntity;
+import com.example.demov1.entity.UserEntity;
 import com.example.demov1.sqlite.SQLiteHelper;
 
 import java.util.ArrayList;
@@ -260,8 +258,10 @@ public class GroupDao {
         if (db.isOpen()) {
             db.execSQL("update saving_group set target_amount=?, current_amount=? where group_id=?", new Object[]
                     {group.getTargetAmount(), group.getCurrentAmount(), groupId}); // Note: update multiple data field
-//            System.out.println("User join a group");
-//            db.close();
+            if (groupTarget == groupCurrent){
+                db.execSQL("update saving_group set group_status=? where group_id=?", new Object[]
+                        {0, groupId});
+            }
         }
     }
 

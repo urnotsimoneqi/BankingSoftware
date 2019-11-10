@@ -1,6 +1,4 @@
-package com.example.demov1.Entity;
-
-import java.util.List;
+package com.example.demov1.entity;
 
 public class GoalEntity {
     private Integer goalId;
