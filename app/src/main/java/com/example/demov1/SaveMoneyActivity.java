@@ -56,6 +56,7 @@ public class SaveMoneyActivity extends AppCompatActivity {
 
         animationView = findViewById(R.id.animation_view);
         animationView.setAnimation("wallet_coin.json");
+//        animationView.loop(true);
         animationView.addAnimatorUpdateListener(valueAnimator -> {
             // judge if the animation is finished
 //            Log.d("Lottie", "" + valueAnimator.getAnimatedFraction());

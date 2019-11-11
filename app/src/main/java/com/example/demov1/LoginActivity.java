@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 //import androidx.appcompat.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.link_signup)
     TextView _signupLink;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,54 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         dao = new LoginDao(this);
         sharedPreferences = getSharedPreferences(MyPREFERENCES,MODE_PRIVATE); // Save current login user info
+
+//        sliderView = findViewById(R.id.slideView);
+//        sliderView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (toast != null){
+//                    toast.cancel();
+//                }
+//                toast = Toast.makeText(LoginActivity.this, "click", Toast.LENGTH_SHORT);
+//                toast.show();
+//            }
+//        });
+//        dim = findViewById(R.id.dim);
+//        fab = (FloatingActionButton) findViewById(R.id.fab_slide);
+//
+//        slideUp = new SlideUpBuilder(sliderView)
+//                .withListeners(new SlideUp.Listener.Events() {
+//                    @Override
+//                    public void onSlide(float percent) {
+//                        dim.setAlpha(1 - (percent / 100));
+//                        if (fab.isShown() && percent < 100) {
+//                            fab.hide();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onVisibilityChanged(int visibility) {
+//                        if (visibility == View.GONE){
+//                            fab.show();
+//                        }
+//                    }
+//                })
+//                .withStartGravity(Gravity.BOTTOM)
+//                .withLoggingEnabled(true)
+//                .withGesturesEnabled(true)
+//                .withStartState(SlideUp.State.HIDDEN)
+//                .withSlideFromOtherView(findViewById(R.id.slideView))
+//                .build();
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                slideUp.show();
+//            }
+//        });
+
+
+
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 

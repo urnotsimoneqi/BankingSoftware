@@ -33,9 +33,10 @@
                 android:id="@+id/saving_amount_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="48dp"
 
                 android:text="You are saving"
-                android:textColor="@color/monsoon"
+                android:textColor="@color/DimGrey"
                 android:textSize="18sp"/>
         <EditText
                 android:id="@+id/saving_amount"
@@ -44,6 +45,7 @@
                 android:layout_below="@+id/saving_amount_label"
                 android:textSize="48dp"
                 android:textColor="@color/black"
+                android:theme="@style/MyEditText"
         >
         </EditText>
 
@@ -52,8 +54,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/saving_amount"
+                android:paddingTop="48dp"
                 android:text="Currency"
-                android:textColor="@color/monsoon"
+                android:textColor="@color/DimGrey"
                 android:textSize="18sp"/>
 
         <com.jaredrummler.materialspinner.MaterialSpinner

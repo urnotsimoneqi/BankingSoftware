@@ -1,6 +1,8 @@
 # BankingSoftware
 The final project for IS5009. A mobile application which is intended to motivate the customers to save money in order to reach their goals.
 
+Github: https://github.com/urnotsimoneqi/BankingSoftware
+
 username: user1@demo.com ~ user6@demo.com
 
 password: 123456

@@ -98,8 +98,4 @@ public class GoalDao {
         db.close();
         return goalList;
     }
-
-
-//    // Get current amount of the goal
-//    public int depositMoney(int userId, int groupId, int money){
 }

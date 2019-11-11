@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/Turquoise3"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fitsSystemWindows="true"
+            android:background="@color/Turquoise3"
 >
 
     <RelativeLayout android:layout_width="match_parent"
@@ -44,11 +45,10 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                 <EditText android:id="@+id/goal_name"
-                          android:textColor="@color/white"
                           android:textColorHint="@color/white"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          />
+                />
             </android.support.design.widget.TextInputLayout>
 
             <!--  Goal Target Label -->
@@ -58,7 +58,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
                 <EditText android:id="@+id/goal_target"
-                          android:textColor="@color/white"
                           android:textColorHint="@color/white"
                           android:inputType="number"
                           android:layout_below="@+id/goal_name"
@@ -74,8 +73,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/private_goal"
                     android:textColor="@color/white"
-                    app:buttonTint="@color/white" />
-                />
+                    app:buttonTint="@color/white"/>
+            />
 
             <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btn_create_goal"
@@ -91,4 +90,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>

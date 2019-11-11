@@ -15,7 +15,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         super(context, name, factory, version);
     }
 
-    /*上面那个太过复杂，所以需要重载一个简单的方法：通过构造方法，完成数据库的创建*/
+    /*The above is too complicated, so we need to overload a simple method: Complete the database creation through the constructor*/
     public SQLiteHelper(Context context){
         super(context,"mydb",null,1);
     }
@@ -30,6 +30,10 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("insert into saving_group values(1,'Group1',10000,10000,0,0)");
         db.execSQL("insert into saving_group values(2,'Group2',10000,2000,1,0)");
         db.execSQL("insert into saving_group values(3,'Group3',10000,2000,1,0)");
+
+        db.execSQL("insert into saving_group values(4,'Group4',50000,20000,1,0)");
+        db.execSQL("insert into saving_group values(5,'Group5',20000,10000,1,0)");
+//        db.execSQL("insert into saving_group values(6,'Group6',1000000,20000,1,0)");
 
         // Create user table
         db.execSQL("create table user (user_id integer primary key autoincrement, " +
@@ -57,6 +61,10 @@ public class SQLiteHelper extends SQLiteOpenHelper{
 
         db.execSQL("insert into goal values(7,2,3,'Goal3',10000,1000,1,0)");
 
+        db.execSQL("insert into goal values(8,3,4,'Goal4',10000,1000,1,0)");
+        db.execSQL("insert into goal values(9,4,5,'Goal5',10000,1000,1,0)");
+//        db.execSQL("insert into goal values(10,5,6,'Goal6',10000,1000,1,0)");
+
         // Create user-group table, multiple to multiple relationship
         db.execSQL("create table user_group (user_group_id integer primary key autoincrement, " +
                 "user_id integer, group_id integer)");
@@ -69,6 +77,9 @@ public class SQLiteHelper extends SQLiteOpenHelper{
 
         db.execSQL("insert into user_group values(7,2,3)");
 
+        db.execSQL("insert into user_group values(8,3,4)");
+        db.execSQL("insert into user_group values(9,4,5)");
+//        db.execSQL("insert into user_group values(10,5,6)");
 
     }
 

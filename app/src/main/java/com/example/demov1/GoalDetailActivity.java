@@ -21,6 +21,7 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GoalDetailActivity extends AppCompatActivity {
     public RecyclerView mUserRecyclerView;
@@ -57,6 +58,20 @@ public class GoalDetailActivity extends AppCompatActivity {
                     .setAnimationEnable(true)
                     .setTitleText(getString(R.string.operation))
                     .setContentText(getString(R.string.content_text))
+                    .setPositiveListener(getString(R.string.ok), new PromptDialog.OnPositiveListener() {
+                        @Override
+                        public void onClick(PromptDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        } else {
+            Random rand = new Random();
+            String context = String.valueOf(rand.nextInt(30)+ 1);
+            new PromptDialog(this)
+                    .setDialogType(PromptDialog.DIALOG_TYPE_WARNING)
+                    .setAnimationEnable(true)
+                    .setTitleText(getString(R.string.warning))
+                    .setContentText(context+getString(R.string.warning_text))
                     .setPositiveListener(getString(R.string.ok), new PromptDialog.OnPositiveListener() {
                         @Override
                         public void onClick(PromptDialog dialog) {
@@ -119,13 +134,15 @@ public class GoalDetailActivity extends AppCompatActivity {
         mUserRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // Set adapter for RecyclerView
         mUserRecyclerView.setAdapter(mUserRecyclerAdapter);
-        //RecyclerView中没有item的监听事件，需要自己在适配器中写一个监听事件的接口。参数根据自定义
+        // There is no listening event in the RecyclerView.
+        // You need to write an interface to listen for events in the adapter.
+        // Parameters are based on customization
         mUserRecyclerAdapter.setOnItemClickListener(new UserRecycleAdapter.OnItemClickListener() {
             private static final String TAG = "Test";
 
             @Override
             public void OnItemClick(View view, UserEntity data, int groupId) {
-                //此处进行监听事件的业务处理
+                // Business processing of listening events here
 //                Toast.makeText(this, data.getUserName(), Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent(this, UserDetailActivity.class);
                 String jsonString = JSON.toJSONString(data);
@@ -138,44 +155,23 @@ public class GoalDetailActivity extends AppCompatActivity {
 
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
-        //关闭sso授权
+        // Turn off sso authorization
         oks.disableSSOWhenAuthorize();
-        // title标题，微信、QQ和QQ空间等平台使用
+        // title
         oks.setTitle("Share");
-        // titleUrl QQ和QQ空间跳转链接
+        // titleUrl
         oks.setTitleUrl("http://sharesdk.cn");
-        // text是分享文本，所有平台都需要这个字段
-        oks.setText("我是分享文本");
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-        // url在微信、微博，Facebook等平台中使用
+        // All fields need this shared text
+        oks.setText("Hi!Join us and start your saving journey");
+        // imagePath is the local path of the image. This parameter is supported by platforms other than Linked-In.
+        oks.setImagePath("/sdcard/test.jpg");// Make sure this image exists under the SDcard
+        // Url is used on WeChat, Weibo, Facebook and other platforms
         oks.setUrl("http://sharesdk.cn");
-        // comment是我对这条分享的评论，仅在人人网使用
-        oks.setComment("我是测试评论文本");
-        // 启动分享GUI
+        // comment used in Renren.com
+        oks.setComment("text comment text");
+        // Start sharing GUI
         oks.show(this);
     }
-
-//    private void showShare() {
-//        OnekeyShare oks = new OnekeyShare();
-//        //关闭sso授权
-//        oks.disableSSOWhenAuthorize();
-//
-//        // title标题，微信、QQ和QQ空间等平台使用
-//        oks.setTitle(getString(R.string.share));
-//        // titleUrl QQ和QQ空间跳转链接
-//        oks.setTitleUrl("http://sharesdk.cn");
-//        // text是分享文本，所有平台都需要这个字段
-//        oks.setText("我是分享文本");
-//        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-//        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-//        // url在微信、微博，Facebook等平台中使用
-//        oks.setUrl("http://sharesdk.cn");
-//        // comment是我对这条分享的评论，仅在人人网使用
-//        oks.setComment("我是测试评论文本");
-//        // 启动分享GUI
-//        oks.show(this);
-//    }
 }
 
 

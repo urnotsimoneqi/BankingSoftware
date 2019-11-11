@@ -1,6 +1,7 @@
 package com.example.demov1;
 
 import android.content.Context;
+import android.content.SyncStats;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -79,6 +80,11 @@ public class UserRecycleAdapter extends RecyclerView.Adapter<UserRecycleAdapter.
             if(individualGoal.getGroupId() == groupId){
                 holder.progressBar.setMax(individualGoal.getGoalTarget());
                 holder.progressBar.setProgress(individualGoal.getGoalCurrent());
+                float progressFloat = Math.round((float) (individualGoal.getGoalCurrent()) / (float) (individualGoal.getGoalTarget()) * (float) 100);
+                int progressInt = (int) progressFloat;
+                String progressString = String.valueOf(progressInt);
+                System.out.println(progressString);
+                holder.goalCompleted.setText(progressString+"%");
             }
         }
 //        holder.goalCompleted.setText("50%");

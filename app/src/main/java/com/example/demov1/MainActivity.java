@@ -90,6 +90,7 @@ public class MainActivity extends BaseActivity {
             if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
                 new ColorDialog(this)
                         .setAnimationEnable(true)
+                        .setColor("#FFB90F")
                         .setContentText(getString(R.string.log_out_text))
                         .setPositiveListener(getString(R.string.quit), new ColorDialog.OnPositiveListener() {
                             @Override
@@ -99,8 +100,8 @@ public class MainActivity extends BaseActivity {
                                 intent_login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 关键的一句，将新的activity置为栈顶
                                 startActivity(intent_login);
                                 System.out.println("Log out");
-                                ActivityCollectorUtil.finishAllActivity();
                                 dialog.dismiss();
+                                ActivityCollectorUtil.finishAllActivity();
                             }
                         })
                         .setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
